@@ -17,8 +17,8 @@ const ProductCard = ({ sanpham }) => {
       <img className="product-image" src={sanpham.image} alt={sanpham.name} />
       <div className="name-sp">{sanpham.name}</div>
       <div className="original-price">
-      <div className="price">{sanpham.price} đ</div>
-       <span className="old-price">{sanpham.price} đ</span>
+      <div className="price">{sanpham.price}₫</div>
+       <span className="old-price">{sanpham.price}₫</span>
       </div>
 
       

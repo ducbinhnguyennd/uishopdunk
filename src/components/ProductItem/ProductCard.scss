@@ -5,16 +5,12 @@
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    overflow: hidden;
+
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
   
     &:hover {
-      transform: scale(1.05);
-    }
-    .discount{
-        display: flex;
-        gap: 100px;
+      transform: scale(1.02);
     }
 
     .price-ratio-container {
@@ -31,8 +27,9 @@
         width: auto;
         height: 31px;
         left: -9px;
-        top: 0px;
         background-size: cover;
+        top: 0px;
+  
     }
 
     .product_tag{
@@ -64,7 +61,7 @@
       font-size: 14px;
       color: gray;
       display: flex;
-  
+    align-items: center;
       .old-price {
         text-decoration: line-through;
       }
@@ -72,9 +69,14 @@
   
     .price {
       font-size: 18px;
-      color: red;
+      color: #0066CC;
       font-weight: bold;
       margin-top: 5px;
+      padding-right: 10px;
+    }
+    .old-price{
+      font-size: 14px;
+
     }
   }
   
