@@ -23,17 +23,17 @@ const LienHe = () => {
                     <a href="https://maps.app.goo.gl/z3xmqsCTZzZCacS4A"
             target="_blank"
             rel="noopener noreferrer" className="address-lienhe">
-            Cơ sở 1: Ngã 3 Cát Đằng, Xã Yên Tiến, Huyện Ý Yên, Tỉnh Nam Định
+            Cơ sở 1: 202 Trường Chinh, Đống Đa, Hà Nội
           </a>
           <br />
                     <a href="https://maps.app.goo.gl/KZkD3xqo1Mgpsypt8"
                         target="_blank"
                         rel="noopener noreferrer" className="address-lienhe">
-                        Cơ sở 2: Ngã 3 Cát Đằng đi về hướng Ninh Bình 300m, Xã Yên Tiến, Huyên Ý Yên, Tỉnh Nam Định
+                        Cơ sở 1: 203 Trường Chinh, Đống Đa, Hà Nội
                     </a>
                 </p>
                 <p className="description">
-                    Hotline: <span className="red">0985.963.784 - 0982.560.805</span>
+                    Hotline: <span className="red">0985.963.963</span>
                 </p>
                 <p className="description">
                     Tên chủ cơ sở: <span className="bold">Anh Công</span>

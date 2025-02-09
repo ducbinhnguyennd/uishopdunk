@@ -15,23 +15,23 @@ const Footer = () => {
             alt="Logo"
             className="logo"
           />
-          <p>ĐỒ GỖ CÔNG HƯƠNG</p>
+          <p>BeeShop</p>
           <div className="address-container">
             <a href="https://maps.app.goo.gl/z3xmqsCTZzZCacS4A"
               target="_blank"
               rel="noopener noreferrer" className="address">
-              Cơ sở 1: Ngã 3 Cát Đằng, Xã Yên Tiến, Huyện Ý Yên, Tỉnh Nam Định
+              Cơ sở 1: 202 Trường Chinh, Đống Đa, Hà Nội
             </a>
             <br />
             <br />
             <a href="https://maps.app.goo.gl/KZkD3xqo1Mgpsypt8"
               target="_blank"
               rel="noopener noreferrer" className="address">
-              Cơ sở 2: Ngã 3 Cát Đằng đi về hướng Ninh Bình 300m, Xã Yên Tiến, Huyên Ý Yên, Tỉnh Nam Định
+              Cơ sở 1: 203 Trường Chinh, Đống Đa, Hà Nội
             </a>
           </div>
           <p>
-            <IoMdCall /> 0985.963.784 - 0982.560.805
+            <IoMdCall /> 0985.963.963
           </p>
           <p>
             <IoMdMail /> ducbinhnguyennd@gmail.com
@@ -70,7 +70,7 @@ const Footer = () => {
         <div className='column'>
           <h3>GIỚI THIỆU</h3>
           <p>
-            Đồ gỗ Công Hương là website giới thiệu các sản phẩm về đồ gỗ dưới sự sáng tạo, tinh tế dưới bàn tay nghệ nhân thương hiệu Công Hương.
+            BeeShop là website giới thiệu các sản phẩm về đồ gỗ dưới sự sáng tạo, tinh tế dưới bàn tay nghệ nhân thương hiệu BeeShop.
           </p>
           <h3>KẾT NỐI VỚI CHÚNG TÔI</h3>
           <div className='socialIcons'>

@@ -13,24 +13,27 @@ const ListBlog = () => {
 
   return (
     <div className='news-list'>
-      <div className='news-header'>TIN TỨC MỚI</div>
-      <ul className='news-items'>
-        {blogs.slice(0, 2).map(blog => (
-          <li key={blog._id} className='news-item'>
+      <div className='news-header'>Tin tức</div>
+      <div className='news-items'>
+        {blogs.slice(0, 3).map(blog => (
+          <div key={blog._id} className='news-item'>
             <div className='news-thumbnail'>
-              <img src={blog.img_blog} alt={blog.tieude_blog} />
+              <img src={"https://shopdunk.com/images/thumbs/0019069__DSC4273%20(1)_1600.jpeg"} alt={blog.tieude_blog} />
             </div>
-            <a
-              href={`/chitietblog/${blog.tieude_khongdau}`}
-              className='news-title'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              {blog.tieude_blog}
-            </a>
-          </li>
+            <div className='news-content'>
+              <a
+                href={`/chitietblog/${blog.tieude_khongdau}`}
+                className='news-title'
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                {blog.tieude_blog}
+              </a>
+              <p className='news-date'>09/02/2025</p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   )
 }

@@ -29,7 +29,7 @@ const Contact = () => {
         <p className="contact-phone">
           Liên hệ:{" "}
           <span style={{ color: "red", fontWeight: "bold" }}>
-            0985.963.784 - 0982.560.805
+            0985.963.963
           </span>
         </p>
       </div>

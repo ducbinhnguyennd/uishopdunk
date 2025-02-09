@@ -27,10 +27,7 @@ const BlogDetail = () => {
         <h1>{blog.tieude_blog}</h1>
         <div dangerouslySetInnerHTML={{ __html: blog.noidung }} />
       </div>
-      <div className='category-sidebar'>
-        <CategoryList />
-        <ListBlog />
-      </div>
+      
     </div>
   )
 }

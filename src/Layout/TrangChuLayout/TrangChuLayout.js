@@ -7,6 +7,7 @@ import Carousel from '../Carousel/Carousel'
 import ThanhDinhHuong from '../../components/ThanhDinhHuong/ThanhDinhHuong'
 import { Helmet } from 'react-helmet'
 import ProductCard from '../../components/ProductItem/ProductCard'
+import ListBlog from '../../components/ListBlog/ListBlog'
 function TrangChuLayout() {
   const [data, setdata] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -58,32 +59,34 @@ function TrangChuLayout() {
           )}
           <Carousel />
           {data.map((item) => (
-        <div key={item.name}>
- 
-          <div className="namesp">{item.name}</div>
+            <div key={item.name}>
 
-          <div className="divsp">
-            {item.sanpham.slice(0, 4).map((sanpham) => (
-              <ProductCard key={sanpham.name} sanpham={sanpham} />
-            ))}
-          </div>
+              <div className="namesp">{item.name}</div>
 
-  
-          <div className="title-product">
-            <Link to={`/san-pham/${convertToSlug(item.name)}`} className="see-all">
-              Xem tất cả{" "}
-              <MdKeyboardArrowRight
-                style={{
-                  color: "#0066CC",
-                  fontSize: "20px",
-                  display: "inline",
-                  marginLeft: "5px",
-                }}
-              />
-            </Link>
-          </div>
-        </div>
-      ))}
+              <div className="divsp">
+                {item.sanpham.slice(0, 4).map((sanpham) => (
+                  <ProductCard key={sanpham.name} sanpham={sanpham} />
+                ))}
+              </div>
+
+
+              <div className="title-product">
+                <Link to={`/san-pham/${convertToSlug(item.name)}`} className="see-all">
+                  Xem tất cả{" "}
+                  <MdKeyboardArrowRight
+                    style={{
+                      color: "#0066CC",
+                      fontSize: "20px",
+                      display: "inline",
+                      marginLeft: "5px",
+                    }}
+                  />
+                </Link>
+              </div>
+            </div>
+          ))}
+      <ListBlog />
+
         </div>
       )}
     </div>
