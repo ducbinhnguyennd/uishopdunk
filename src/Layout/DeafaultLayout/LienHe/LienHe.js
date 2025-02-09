@@ -8,14 +8,14 @@ const LienHe = () => {
         
         <div id="lienHe">
             <Helmet>
-        <title>{"Liên Hệ - Đồ Thờ Đồ Gỗ Công Hương"}</title>
-        <meta name="description" content={"Đồ Thờ Công Hương luôn sẵn sàng lắng nghe và hỗ trợ bạn! Nếu bạn có bất kỳ câu hỏi, yêu cầu hoặc cần tư vấn về các sản phẩm đồ thờ và đồ gỗ mỹ nghệ, hãy liên hệ ngay. Đội ngũ của chúng tôi cam kết mang đến cho bạn dịch vụ tốt nhất. 📍 Địa chỉ: Ngã 3 Cát Đằng, Yên Tiến, Ý Yên, Nam Định 📞 Hotline: 0985963784"} />
-        <meta name="keywords" content={"Đồ Thờ Công Hương, Làng nghề Cát Đằng, Yên Tiến, Ý Yên, Nam Định, Làm Mộc, Tạc Tượng, Tu Sửa Đình Chùa, Nhà Thờ"} />
+        <title>{"Liên Hệ - Shopdunk"}</title>
+        <meta name="description" content={"Shopdunk luôn sẵn sàng lắng nghe và hỗ trợ bạn! Nếu bạn có bất kỳ câu hỏi, yêu cầu hoặc cần tư vấn về các sản phẩm đồ thờ và đồ gỗ mỹ nghệ, hãy liên hệ ngay. Đội ngũ của chúng tôi cam kết mang đến cho bạn dịch vụ tốt nhất. 📍 Địa chỉ: Ngã 3 Cát Đằng, Yên Tiến, Ý Yên, Nam Định 📞 Hotline: 0985963784"} />
+        <meta name="keywords" content={"Shopdunk, Làng nghề Cát Đằng, Yên Tiến, Ý Yên, Nam Định, Làm Mộc, Tạc Tượng, Tu Sửa Đình Chùa, Nhà Thờ"} />
       </Helmet>
             <div className="lienhe-title">Liên hệ</div>
             <div className="contact-info">
                 <div id="name-contact">
-                    Cơ sở sản xuất đồ thờ - đồ gỗ <span className="red">Đồ thờ Công Hương</span>
+                    Cơ sở sản xuất đồ thờ - đồ gỗ <span className="red">Shopdunk</span>
                 </div>
 
                 <p className="description">

@@ -1,0 +1,80 @@
+.product-card {
+    position: relative;
+    width: 250px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  
+    &:hover {
+      transform: scale(1.05);
+    }
+    .discount{
+        display: flex;
+        gap: 100px;
+    }
+
+    .price-ratio-container {
+        border-radius: 4px;
+        padding: 1px 15px;
+        text-align: center;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 24px;
+        color: #ffffff;
+        position: absolute;
+        background: url(../../../public/price-ratio.png) left center no-repeat;
+        width: auto;
+        height: 31px;
+        left: -9px;
+        top: 0px;
+        background-size: cover;
+    }
+
+    .product_tag{
+        width: 100%;
+        position: absolute;
+        display: flex;
+        align-items: baseline;
+        justify-content: flex-end;
+        min-height: 50px;
+        top: 7px;
+        right: 8px;
+        z-index: 2;
+    }
+  
+    .product-image {
+      width: 100%;
+      max-width: 200px;
+      display: block;
+      margin: 12% auto;
+    }
+  
+    .name-sp {
+      font-size: 16px;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+  
+    .original-price {
+      font-size: 14px;
+      color: gray;
+      display: flex;
+  
+      .old-price {
+        text-decoration: line-through;
+      }
+    }
+  
+    .price {
+      font-size: 18px;
+      color: red;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+  }
+  

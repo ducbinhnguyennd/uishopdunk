@@ -19,7 +19,7 @@ const CategoryList = () => {
         {categories.map(category => (
           <li key={category.id} className='category-item'>
             <Link to={`/san-pham/${category.namekhongdau}`}>
-              <div className='category-name'>• {category.name}</div>
+              <div className='category-name'>{category.name}</div>
             </Link>
           </li>
         ))}

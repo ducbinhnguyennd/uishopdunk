@@ -6,8 +6,8 @@ import { Link, useLocation } from 'react-router-dom'
 import Carousel from '../Carousel/Carousel'
 import ThanhDinhHuong from '../../components/ThanhDinhHuong/ThanhDinhHuong'
 import { Helmet } from 'react-helmet'
-
-function TrangChuLayout () {
+import ProductCard from '../../components/ProductItem/ProductCard'
+function TrangChuLayout() {
   const [data, setdata] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const location = useLocation()
@@ -46,19 +46,9 @@ function TrangChuLayout () {
   return (
     <div>
       <Helmet>
-        <title>{'Đồ Thờ Đồ Gỗ Công Hương - Ý Yên Nam Định'}</title>
-        <meta
-          name='description'
-          content={
-            'Đồ Thờ Đồ Gỗ Công Hương tọa lạc tại Ngã 3 Cát Đằng, xã Yên Tiến, huyện Ý Yên, tỉnh Nam Định, nơi nổi tiếng với các sản phẩm đồ thờ và đồ gỗ mỹ nghệ cao cấp. Với truyền thống lâu đời của làng nghề Ý Yên, Nam Định, nơi đây được biết đến như một trung tâm chế tác đồ thờ, đồ gỗ với sự khéo léo, tinh tế trong từng sản phẩm.'
-          }
-        />
-        <meta
-          name='keywords'
-          content={
-            'Đồ Thờ Công Hương, Làng nghề Cát Đằng, Yên Tiến, Ý Yên, Nam Định, Làm Mộc, Tạc Tượng, Tu Sửa Đình Chùa, Nhà Thờ'
-          }
-        />
+        <title>{'Shopdunk'}</title>
+
+
       </Helmet>
       {isLoading && <Loading />}
       {!isLoading && (
@@ -67,57 +57,33 @@ function TrangChuLayout () {
             <ThanhDinhHuong breadcrumbs={[{ label: 'Trang Chủ', link: '/' }]} />
           )}
           <Carousel />
-          {data.map(item => (
-            <div key={item.name}>
-              <div className='title-product'>
-                <p className='namesp'>{item.name}</p>
-                <Link
-                  to={`/san-pham/${convertToSlug(item.name)}`}
-                  className='see-all'
-                >
-                  Xem tất cả{' '}
-                  <MdKeyboardArrowRight
-                    style={{
-                      color: '#ffffffbe',
-                      fontSize: '20px',
-                      display: 'inline',
-                      marginLeft: '5px'
-                    }}
-                  />
-                </Link>
-              </div>
+          {data.map((item) => (
+        <div key={item.name}>
+ 
+          <div className="namesp">{item.name}</div>
 
-              <div className='divsp'>
-                {item.sanpham.map(sanpham => (
-                  <div
-                    className='divtungsp'
-                    key={sanpham.name}
-                    onClick={() =>
-                      (window.location.href = `/chitietsanpham/${sanpham.namekhongdau}`)
-                    }
-                  >
-                    <img className='discount-logo2' src='./logo.png' />
-                    <img src={`${sanpham.image}`} alt='' />
-                    <div className='name-sp'>{sanpham.name}</div>
-                    <div className='original-price'>
-                      Giá gốc: <span>50.000.000đ</span>
-                    </div>
-                    <div className='price'>
-                      {sanpham.price.toLocaleString()} đ
-                    </div>
-                    <Link to={`/chitietsanpham/${sanpham.namekhongdau}`}>
-                      <button
-                        className='btnthemgiohang'
-                        onClick={e => e.stopPropagation()}
-                      >
-                        Xem chi tiết
-                      </button>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+          <div className="divsp">
+            {item.sanpham.slice(0, 4).map((sanpham) => (
+              <ProductCard key={sanpham.name} sanpham={sanpham} />
+            ))}
+          </div>
+
+  
+          <div className="title-product">
+            <Link to={`/san-pham/${convertToSlug(item.name)}`} className="see-all">
+              Xem tất cả{" "}
+              <MdKeyboardArrowRight
+                style={{
+                  color: "#0066CC",
+                  fontSize: "20px",
+                  display: "inline",
+                  marginLeft: "5px",
+                }}
+              />
+            </Link>
+          </div>
+        </div>
+      ))}
         </div>
       )}
     </div>

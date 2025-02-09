@@ -20,7 +20,7 @@ const Contact = () => {
             rel="noopener noreferrer"
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            ĐỒ THỜ CÔNG HƯƠNG, Ngã 3 Cát Đằng, Yên Tiến, Ý Yên, Nam Định
+            Shopdunk, Ngã 3 Cát Đằng, Yên Tiến, Ý Yên, Nam Định
           </a>
         </p>
       </div>

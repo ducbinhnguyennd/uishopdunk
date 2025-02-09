@@ -35,7 +35,7 @@ const BaoMat = () => {
       <div className="bao-mat-subtitle">2. Sử dụng thông tin cá nhân</div>
       <ul className="baomat-list2">
         <li>
-          Website Đồ thờ Công Hương thu thập và sử dụng thông tin cá nhân quý
+          Website Shopdunk thu thập và sử dụng thông tin cá nhân quý
           khách với mục đích phù hợp và hoàn toàn tuân thủ nội dung của “Chính
           sách bảo mật” này.
         </li>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import CategoryList from '../../components/ListTheLoai/CategoryList'
 import Loading from '../../components/Loading/Loading'
-import { Link } from 'react-router-dom'
+import ProductCard from '../../components/ProductItem/ProductCard'
 import './TheLoaiLayout.scss'
 import { FaFilter } from 'react-icons/fa6'
 import ListBlog from '../../components/ListBlog/ListBlog'
@@ -58,14 +58,9 @@ const TheLoaiLayout = () => {
   return (
     <div className='theloailayout-container'>
       <Helmet>
-        <title>{productDetails.nametheloai} - Đồ Thờ Công Hương</title>
+        <title>{productDetails.nametheloai} - Shopdunk</title>
         <meta name='description' content={productDetails.nametheloai} />
-        <meta
-          name='keywords'
-          content={
-            'Đồ Thờ Công Hương, Làng nghề Cát Đằng, Yên Tiến, Ý Yên, Nam Định, Làm Mộc, Tạc Tượng, Tu Sửa Đình Chùa, Nhà Thờ'
-          }
-        />
+       
       </Helmet>
       <ThanhDinhHuong
         breadcrumbs={[
@@ -76,7 +71,7 @@ const TheLoaiLayout = () => {
       <div className='theloailayout'>
         <div className='category-sidebar'>
           <CategoryList />
-          <ListBlog />
+          
         </div>
 
         <div
@@ -97,36 +92,14 @@ const TheLoaiLayout = () => {
           {loading ? (
             <Loading />
           ) : (
-            productDetails.sanpham.map(product => (
-              <div
-                className='divtungsp'
-                key={product._id}
-                onClick={() =>
-                  (window.location.href = `/chitietsanpham/${product.namekhongdau}`)
-                }
-              >
-                <div className='discount'>
-                  <p className='number-discount'>-14%</p>
-                </div>
-                <img src={`${product.image}`} alt={product.name} />
-                <div className='product-name'>{product.name}</div>
-                <div className='original-price'>
-                  Giá gốc: <span>2000000đ</span>
-                </div>
-                <div className='price'>{product.price} đ</div>
-                <Link to={`/chitietsanpham/${product.namekhongdau}`}>
-                  <button
-                    className='btnthemgiohang'
-                    onClick={() => setLoading(true)}
-                  >
-                    Xem chi tiết
-                  </button>
-                </Link>
-              </div>
+            productDetails.sanpham.map((sanpham) => (
+              <ProductCard key={sanpham._id} sanpham={sanpham} setLoading={setLoading} />
             ))
           )}
         </div>
       </div>
+      <ListBlog />
+
     </div>
   )
 }

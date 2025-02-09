@@ -6,7 +6,7 @@ const GioiThieu = () => {
     <div id="gioithieu">
       <div className="gioi-thieu-title">Về chúng tôi</div>
       <p>
-        Đồ Thờ Công Hương là cơ sở sản xuất gỗ thuộc làng nghề Cát Đằng - Yên
+        Shopdunk là cơ sở sản xuất gỗ thuộc làng nghề Cát Đằng - Yên
         Tiến - Ý Yên - Nam Định. Cơ sở với hàng chục năm kinh nghiệm, sản xuất
         các dòng sản phẩm làm nên thương hiệu như: đồ thờ phong thủy, nội thất,
         mỹ nghệ... được làng bằng các chất liệu gỗ tốt, quý hiếm như: gỗ hương,
@@ -24,7 +24,7 @@ const GioiThieu = () => {
           className="image-gt"
         />
         <p className="caption">
-          Giới thiệu về xưởng sản xuất đồ thờ Công Hương
+          Giới thiệu về xưởng sản xuất Shopdunk
         </p>
       </div>
       <p>
@@ -51,7 +51,7 @@ const GioiThieu = () => {
         <b>0985963784</b> (Anh Công) và <b>0982560805</b> (Chị Hương)
       </p>
       <div className="contact-info">
-        <h3>ĐỒ THỜ CÔNG HƯƠNG</h3>
+        <h3>Shopdunk</h3>
         <p>Địa chỉ: ngã ba Cát Đằng, Yên Tiến, Ý Yên, Nam Định</p>
         <p>
           Fanpage:{" "}

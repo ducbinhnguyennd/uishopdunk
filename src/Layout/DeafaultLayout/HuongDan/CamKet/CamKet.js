@@ -6,7 +6,7 @@ const CamKet = () => {
         <div id="camket">
             <div className="camket-title">CAM KẾT VÀ QUY ĐỊNH CHUNG</div>
             <div className="camket-description">
-                Các sản phẩm của cơ sở Đồ thờ Công Hương chúng tôi đều được điêu khắc công phu, tỉ mỉ đến từng chi tiết nhỏ nhằm nâng cao thương hiệu, uy tín và đảm bảo chất lượng khi đến tay khách hàng.
+                Các sản phẩm của cơ sở Shopdunk chúng tôi đều được điêu khắc công phu, tỉ mỉ đến từng chi tiết nhỏ nhằm nâng cao thương hiệu, uy tín và đảm bảo chất lượng khi đến tay khách hàng.
             </div>
             <img
                 src="https://dogovinhdinh.vn/wp-content/uploads/2020/10/camket.png"

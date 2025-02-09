@@ -52,7 +52,7 @@ const ChiTietLayout = () => {
   return (
     <div className='container-chitiet'>
       <Helmet>
-        <title>{product.name} - Đồ Thờ Công Hương</title>
+        <title>{product.name} - Shopdunk</title>
       </Helmet>
       <ThanhDinhHuong
         breadcrumbs={[
