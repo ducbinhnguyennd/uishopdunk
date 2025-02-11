@@ -1,27 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import "./DoiTra.scss"; 
 
 const DoiTra = () => {
   return (
-    <div id="doi-tra">
-      <h2 className="title">CHÍNH SÁCH GIAO HÀNG – ĐỔI TRẢ</h2>
-      <p className="description">
-        Với mong muốn đem đến cho quý khách những sản phẩm chất lượng cao và ưng ý nhất.
-        Chúng tôi có những quy định đổi trả để đảm bảo quyền lợi cho mọi quý khách hàng như sau:
+    <div>
+      <div className="exchange">THU CŨ ĐỔI MỚI</div>
+      <div className="catelog_banner">
+  <img src="https://shopdunk.com/images/uploaded/banner/PaaC.png" alt="" />
+
+      </div>
+      <div className="exchange-container">
+      <h3 className="exchange-title">
+        <strong>Thu cũ đổi mới lên đời Apple 0 đồng, tặng thêm đến 2.400.000đ lên đời iPhone 16 series</strong>
+      </h3>
+      <ul className="exchange-info">
+        <li>
+          <strong>Thời gian áp dụng:</strong> đến 31/10/2024
+        </li>
+        <li>
+          <strong>Phạm vi:</strong> Toàn bộ hệ thống ShopDunk và ShopDunk+
+        </li>
+        <li>
+          <strong>Lưu ý:</strong> Được áp dụng trả góp và <strong>không áp dụng</strong> cộng gộp các chương trình khuyến mãi khác.
+        </li>
+      </ul>
+      <p className="exchange-content">
+        <strong>Nội dung chương trình:</strong>
       </p>
-      <h4 className="subtitle">1– Khi nhận hàng từ nhân viên giao hàng:</h4>
-      <p className="doitra-text">
-        Quý khách tiến hành mở hàng kiểm tra sản phẩm. Nếu sản phẩm không đúng như thông tin đặt hàng, chất lượng kém
-        quý khách có thể liên lạc ngay với tôi theo số <strong>0985963784</strong> để được giải quyết. Nếu không đảm bảo
-        chất lượng chúng tôi sẽ hoàn lại 100% tiền cọc cho quý khách.
+      <ul className="exchange-details">
+        <li>Thu máy cũ giá cao, thẩm định nhanh, lên đời máy mới ngay và không cần trả trước bất cứ khoản gì tại ShopDunk.</li>
+        <li>
+          Tặng thêm đến <strong>2.400.000đ</strong> khi khách hàng lên đời iPhone 16 series mới nhất, chi tiết như sau:
+          <table className="exchange-table">
+            <thead>
+              <tr>
+                <th>Mã hàng</th>
+                <th>Giảm giá khi lên đời iPhone 16 series</th>
+              </tr>
+            </thead>
+            <tbody>
+              {["iPhone 15 series", "iPhone 14 series", "iPhone 13 Pro Max", "iPhone 13 Pro", "iPhone 13 Plus", "iPhone 13", "iPhone 12 Pro", "iPhone 12", "iPhone 11 Pro Max", "iPhone 11 Pro", "iPhone 11"].map((model) => (
+                <tr key={model}>
+                  <td>{model}</td>
+                  <td>đến 2.400.000</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </li>
+      </ul>
+      <p className="exchange-note">
+        <strong>* Lưu ý:</strong>
       </p>
-      <h4 className="subtitle">2– Sau khi nhận sản phẩm:</h4>
-      <p className="doitra-text">
-        Trong thời hạn 7 ngày nếu sản phẩm có chất lượng kém, không đúng như giới thiệu, không đảm bảo chất lượng, chúng tôi
-        sẽ hoàn trả quý khách 100% giá trị của hàng hóa. Để đảm bảo quý khách yên tâm 100% về chất lượng sản phẩm.
-        Trong thời hạn 5 năm nếu sản phẩm có bất kì tình trạng nút hỏng hóc kể cả lỗi do phía khách hàng chúng tôi đều bảo hành
-        phun PU miễn phí cho quý khách.
-      </p>
+      <ul className="exchange-terms">
+        <li>Không áp dụng cộng gộp với chương trình giảm giá khác</li>
+        <li>Hỗ trợ trả góp số tiền thiếu lại khi lên đời</li>
+        <li>Chỉ áp dụng sản phẩm được xác định thu lại là loại A/TBH</li>
+      </ul>
+    </div>
     </div>
   );
 };

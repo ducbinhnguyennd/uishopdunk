@@ -2,7 +2,7 @@ import React from "react";
 import "./Call.scss";
 const Call = () => {
   return (
-    <a href="tel:0985963784">
+    <a href="tel:0337252262">
       <div
         className="circle-call"
         style={{ marginTop: "20px", marginBottom: "20px" }}

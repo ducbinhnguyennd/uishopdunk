@@ -15,7 +15,7 @@ const LienHe = () => {
             <div className="lienhe-title">Liên hệ</div>
             <div className="contact-info">
                 <div id="name-contact">
-                    Cơ sở sản xuất đồ thờ - đồ gỗ <span className="red">Shopdunk</span>
+                    Cơ sở chuyên buôn bán điện thoại <span className="red">Shopdunk</span>
                 </div>
 
                 <p className="description">
@@ -43,7 +43,7 @@ const LienHe = () => {
                     <a
                         href="https://www.facebook.com/dothoconghuong/"
                         className="red">
-                        https://www.facebook.com/dothoconghuong/
+                        https://www.facebook.com/shopdunk/
                     </a>
                 </p>
                 <p className="description">

@@ -120,7 +120,7 @@ const ChiTietLayout = () => {
 
             <div className='buttons'>
               <a
-                href='https://zalo.me/0985963784'
+                href='https://zalo.me/0337252262'
                 target='_blank'
                 rel='noopener noreferrer'
                 className='buy-now'

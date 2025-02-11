@@ -6,57 +6,42 @@ const GioiThieu = () => {
     <div id="gioithieu">
       <div className="gioi-thieu-title">Về chúng tôi</div>
       <p>
-        Shopdunk là cơ sở sản xuất gỗ thuộc làng nghề Cát Đằng - Yên
-        Tiến - Ý Yên - Nam Định. Cơ sở với hàng chục năm kinh nghiệm, sản xuất
-        các dòng sản phẩm làm nên thương hiệu như: đồ thờ phong thủy, nội thất,
-        mỹ nghệ... được làng bằng các chất liệu gỗ tốt, quý hiếm như: gỗ hương,
-        gỗ trắc, gỗ sưa, gỗ Tử Đàn Ấn Độ.
+      HESMAN Group là đơn vị số 1 tạo nên những trải nghiệm tuyệt vời cho quá trình mua sắm sản phẩm công nghệ tại Việt Nam. Chúng tôi là đối tác ủy quyền tin cậy của các hãng công nghệ uy tín hàng đầu trên thế giới như Apple, Samsung trong lĩnh vực thương mại và dịch vụ.Điều tuyệt vời nhất ở HESMAN chính là, khi chúng ta trở thành đồng nghiệp, đối tác hay khách hàng của nhau, chúng ta đã trở thành người một nhà. Ở mỗi điểm chạm, chúng ta luôn kết nối, bàn bạc và trao đổi để cùng thống nhất mục tiêu chung, bởi chúng ta không có khoảng cách.
       </p>
       <p>
-        Đến với Công Hương với đội ngũ sản xuất có tay nghề cao, nhiều năm hoạt
-        động trong ngành, luôn cam kết cho ra các dòng sản phẩm đẹp nhất, phù
-        hợp nhất đối với quý khách hàng.
+      HESMAN Group đã tạo nên một lịch sử mới cho thương hiệu ShopDunk, xóa nhòa đi mọi định kiến và khái niệm về thương hiệu ShopDunk cũ ở những năm 2012-2016. Hiện ShopDunk đang mạnh mẽ dấn thân, trở thành đối tác uy tín của những hãng công nghệ hàng đầu thế giới.
       </p>
       <div className="gioithieu-image">
         <img
-          src="https://media.loveitopcdn.com/26706/thumb/1200x1200/tham-khao-ngay-bo-suu-tap-hinh-anh-ban-tho-dep-sang-xin-ban-chay-nhat-3.jpg?zc=1"
+          src="https://shopdunk.com/images/uploaded/Image%20(6)_1000.png"
           alt=""
           className="image-gt"
         />
         <p className="caption">
-          Giới thiệu về xưởng sản xuất Shopdunk
+          Giới thiệu về cơ sở Shopdunk
         </p>
       </div>
       <p>
-        Tất cả sản phẩm của shop làm ra đều xuất phát từ cái TÂM của một người
-        con có truyền thống 3 đời làm nghề mỹ nghệ. Với kinh nghiệm và sự uy tín
-        của mình, shop Công Hương mong muốn giữ đến những người đam mê đồ gỗ mỹ
-        nghệ những sản phẩm hoàn hảo nhất, giá trị nhất về thời gian và tinh
-        thần.
+      Tầm nhìn tương lai, HESMAN Group sẽ là đơn vị tiên phong số 1 trong lĩnh vực cung cấp các sản phẩm công nghệ cao cấp mới nhất tới tay người tiêu dùng Việt Nam. Nâng cao giá trị trải nghiệm mua sắm cho khách hàng từ những nhu cầu nhỏ nhất với hệ thống stores rộng khắp trên toàn quốc
+
       </p>
       <p>
-        Đối với công nghệ mỹ nghệ sẽ có vô vàn cách để làm ra 1 sản phẩm mà chỉ
-        trong nghìn mẫu thiết kế: Dụng cụ, tạo chất hoàn thiện, PU, kích thước,
-        chất liệu gỗ... Đối với nhiều khách hàng không biết rất dễ mua phải hàng
-        kém chất lượng. Sản phẩm có giá trị lâu dài và trường tồn được với thời
-        gian hay không phụ thuộc rất nhiều vào độ tinh xảo và chất nét trên từng
-        sản phẩm cũng như chất liệu.
+      HESMAN đặt ra sứ mệnh phát triển vượt bậc, mang những sản phẩm công nghệ độc đáo tới tay người tiêu dùng nhanh nhất, giúp tạo ra cuộc sống hiện đại, nơi con người kết nối với công nghệ và công nghệ phục vụ con người.
       </p>
       <p>
-        Hiện tại chủ cơ sở là chú Công và em là Đức Bình quản lý. Nếu mọi người
-        có bất kỳ thắc mắc gì thì hãy liên hệ trực tiếp với chúng tôi qua số
-        điện thoại:
+      Lấy con người và công nghệ làm cốt lõi cho định hướng phát triển doanh nghiệp, xoay quanh khách hàng làm trung tâm, HESMAN xây dựng hệ sinh thái cung cấp sản phẩm, dịch vụ công nghệ cao, định hướng mở rộng chi nhánh ở tất cả các tỉnh trên toàn quốc.
       </p>
       <p>
-        <b>0985963784</b> (Anh Công) và <b>0982560805</b> (Chị Hương)
+        <b>0985963963</b> (Tổng đài CSKH) và <b>0982560560</b> (Đại lý khu vực)
       </p>
       <div className="contact-info">
         <h3>Shopdunk</h3>
-        <p>Địa chỉ: ngã ba Cát Đằng, Yên Tiến, Ý Yên, Nam Định</p>
+        <p>Địa chỉ: 202 Trường Chinh, Đống Đa, Hà Nội
+        </p>
         <p>
           Fanpage:{" "}
-          <a href="https://www.facebook.com/dothoconghuong/" className="gioithieu-red">
-            https://www.facebook.com/dothoconghuong/
+          <a href="https://www.facebook.com/shopdunk/" className="gioithieu-red">
+            https://www.facebook.com/shopdunk/
           </a>
         </p>
       </div>

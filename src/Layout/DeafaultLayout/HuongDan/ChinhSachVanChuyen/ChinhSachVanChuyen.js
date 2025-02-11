@@ -10,7 +10,7 @@ const ChinhSachVanChuyen = () => {
                 alt="Logo"
                 className="img-chinh-sach"
             />
-            <p> Chúng tôi sử dụng chuyển phát nhanh do thợ tay nghề của cơ sở đi lắp và nhận thanh toán theo hình thức COD (nhận hàng trả tiền) để đảm bảo sản phẩm sẽ đến tận tay khách hàng nhanh chóng nhất: Tất cả các sản phẩm đều được đóng bọc lót kỹ càng trước khi vận chuyển.</p>
+            <p> Chúng tôi sử dụng chuyển phát nhanh do nhân viên của cơ sở đi ship và nhận thanh toán theo hình thức COD (nhận hàng trả tiền) để đảm bảo sản phẩm sẽ đến tận tay khách hàng nhanh chóng nhất: Tất cả các sản phẩm đều được đóng bọc lót kỹ càng trước khi vận chuyển.</p>
         </div>
     );
 };

@@ -46,10 +46,10 @@ const Footer = () => {
           <ul>
             <li><Link to={"/"}>Về chúng tôi</Link></li>
             <li><Link to={"/lien-he"}>Liên hệ</Link></li>
-            <li><Link to={"/doi-tra"}>Chính sách giao hàng - đổi trả</Link></li>
+            <li><Link to={"/doi-tra"}>Thu cũ đổi mới</Link></li>
             <li><Link to={"/huong-dan-mua-hang"}>Hướng dẫn mua hàng</Link></li>
             <li><Link to={"/huong-dan-thanh-toan"}>Hướng dẫn thanh toán</Link></li>
-            <li>Kiến Thức Phong Thủy</li>
+           
           </ul>
           <h3>ĐĂNG KÝ TƯ VẤN</h3>
           <p>
@@ -85,7 +85,7 @@ const Footer = () => {
               onClick={() => window.location.href = "tel:0985963784"}
             />
 
-            <SiZalo className="icons" onClick={() => window.open("https://zalo.me/0985963784", "_blank")} />
+            <SiZalo className="icons" onClick={() => window.open("https://zalo.me/0337252262", "_blank")} />
           </div>
         </div>
       </div>

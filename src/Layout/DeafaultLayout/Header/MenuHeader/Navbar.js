@@ -25,8 +25,8 @@ const Navbar = ({ onMenuSelect }) => {
   }, []);
 
   const handleSubmenuClick = () => {
-    setMenuOpen(false); // Close the menu when a submenu item is clicked
-    setSubmenuOpen(false); // Close the submenu as well
+    setMenuOpen(false); 
+    setSubmenuOpen(false);
   };
 
   return (
@@ -98,7 +98,7 @@ const Navbar = ({ onMenuSelect }) => {
                 <Link to="/huong-dan-mua-hang">Hướng dẫn mua hàng</Link>
               </li>
               <li onClick={handleSubmenuClick}>
-                <Link to="/doi-tra">Chính sách giao hàng - đổi trả</Link>
+                <Link to="/doi-tra">Thu cũ đổi mới</Link>
               </li>
               <li onClick={handleSubmenuClick}>
                 <Link to="/cam-ket">Cam kết và quy định chung</Link>

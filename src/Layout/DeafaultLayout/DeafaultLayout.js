@@ -16,7 +16,7 @@ function DefaultLayout({ children }) {
       <Footer />
       <div className="floatingbuton">
     
-        <Zalo onClick={() => {"https://zalo.me/0985963784"}} />
+        <Zalo onClick={() => {"https://zalo.me/0337252262"}} />
         <Call />
       </div>
     </div>
