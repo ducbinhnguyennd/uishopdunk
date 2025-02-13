@@ -8,7 +8,7 @@ import ThanhDinhHuong from '../../components/ThanhDinhHuong/ThanhDinhHuong'
 import { Helmet } from 'react-helmet'
 import ProductCard from '../../components/ProductItem/ProductCard'
 import ListBlog from '../../components/ListBlog/ListBlog'
-function TrangChuLayout() {
+function TrangChuLayout () {
   const [data, setdata] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const location = useLocation()
@@ -16,7 +16,7 @@ function TrangChuLayout() {
   const fetchdata = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('https://demovemaybay.shop/sanpham')
+      const response = await fetch('http://localhost:3005/sanpham')
       const data = await response.json()
       if (response.ok) {
         setdata(data)
@@ -48,8 +48,6 @@ function TrangChuLayout() {
     <div>
       <Helmet>
         <title>{'Shopdunk'}</title>
-
-
       </Helmet>
       {isLoading && <Loading />}
       {!isLoading && (
@@ -58,35 +56,35 @@ function TrangChuLayout() {
             <ThanhDinhHuong breadcrumbs={[{ label: 'Trang Chủ', link: '/' }]} />
           )}
           <Carousel />
-          {data.map((item) => (
+          {data.map(item => (
             <div key={item.name}>
+              <div className='namesp'>{item.name}</div>
 
-              <div className="namesp">{item.name}</div>
-
-              <div className="divsp">
-                {item.sanpham.slice(0, 4).map((sanpham) => (
+              <div className='divsp'>
+                {item.sanpham.slice(0, 4).map(sanpham => (
                   <ProductCard key={sanpham.name} sanpham={sanpham} />
                 ))}
               </div>
 
-
-              <div className="title-product">
-                <Link to={`/san-pham/${convertToSlug(item.name)}`} className="see-all">
-                  Xem tất cả{" "}
+              <div className='title-product'>
+                <Link
+                  to={`/san-pham/${convertToSlug(item.name)}`}
+                  className='see-all'
+                >
+                  Xem tất cả{' '}
                   <MdKeyboardArrowRight
                     style={{
-                      color: "#0066CC",
-                      fontSize: "20px",
-                      display: "inline",
-                      marginLeft: "5px",
+                      color: '#0066CC',
+                      fontSize: '20px',
+                      display: 'inline',
+                      marginLeft: '5px'
                     }}
                   />
                 </Link>
               </div>
             </div>
           ))}
-      <ListBlog />
-
+          <ListBlog />
         </div>
       )}
     </div>

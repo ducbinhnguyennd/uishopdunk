@@ -40,7 +40,7 @@ const TheLoaiLayout = () => {
       try {
         setLoading(true)
         const response = await fetch(
-          `https://demovemaybay.shop/san-pham/${slug}`
+          `http://localhost:3005/san-pham/${slug}`
         )
         const data = await response.json()
         setProductDetails(data)

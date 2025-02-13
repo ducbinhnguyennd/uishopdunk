@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './ChiTietLayout.scss'
@@ -16,28 +17,46 @@ const ChiTietLayout = () => {
   const { tieude } = useParams()
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [mausac, setMausac] = useState([])
+  const [mausac1, setMausac1] = useState([])
+
+
+  const fetchmausac = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3005/getmausacrieng/${tieude}`
+      )
+      if (response.ok) {
+        const data = await response.json()
+        setMausac(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const fetchProduct = async () => {
+    try {
+      setIsLoading(true)
+      const response = await fetch(
+        `http://localhost:3005/chitietsanpham/${tieude}`
+      )
+      const data = await response.json()
+      if (response.ok) {
+        setProduct(data)
+        console.log(data)
+      } else {
+        console.error('Không tìm thấy sản phẩm')
+      }
+    } catch (error) {
+      console.error('Lỗi khi gọi API:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setIsLoading(true)
-        const response = await fetch(
-          `https://demovemaybay.shop/chitietsanpham/${tieude}`
-        )
-        const data = await response.json()
-        if (response.ok) {
-          setProduct(data)
-          console.log(data)
-        } else {
-          console.error('Không tìm thấy sản phẩm')
-        }
-      } catch (error) {
-        console.error('Lỗi khi gọi API:', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
+    fetchmausac()
     fetchProduct()
   }, [tieude])
 
@@ -64,8 +83,6 @@ const ChiTietLayout = () => {
       <div className='main'>
         <div className='product-detail'>
           <div className='product-image'>
-            <img className='discount-logo2' src='/logo.png' />
-
             <img src={product.image} alt={product.name} className='pdt-img' />
           </div>
 
@@ -74,8 +91,17 @@ const ChiTietLayout = () => {
             <div className='chitietprice'>
               Giá: <span className='old-price'>50.000.000đ</span>{' '}
               <span className='current-price'>
-                {product.price.toLocaleString()}đ
+                {product.price.toLocaleString()}
               </span>
+            </div>
+            <div className='mausac_chitiet'>
+              {mausac.map((item, index) => (
+                <div className={mausac1 === item.name ? `border_mausac border_mausac1` : `border_mausac`} key={index} onClick={()=>setMausac1(item.name)}>
+                  <div style={{ backgroundColor: `${item.name}` }}>
+
+                  </div>
+                </div>
+              ))}
             </div>
             <div
               className='description'
