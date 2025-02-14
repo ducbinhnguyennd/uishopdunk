@@ -2,13 +2,13 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ProductCard.scss'
 
-const ProductCard = ({ sanpham }) => {
+const ProductCard = ({ sanpham,nametheloai }) => {
   const navigate = useNavigate()
 
   return (
     <div
       className='product-card'
-      onClick={() => navigate(`/chitietsanpham/${sanpham.namekhongdau}`)}
+      onClick={() => navigate(`/chitietsanpham/${nametheloai}/${sanpham.namekhongdau}`)}
     >
       <div class='price-ratio-container'>Giảm 27%</div>
       <div className='product_tag'>

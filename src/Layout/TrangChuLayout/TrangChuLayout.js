@@ -62,7 +62,7 @@ function TrangChuLayout () {
 
               <div className='divsp'>
                 {item.sanpham.slice(0, 4).map(sanpham => (
-                  <ProductCard key={sanpham.name} sanpham={sanpham} />
+                  <ProductCard key={sanpham.name} sanpham={sanpham} nametheloai={item.namekhongdau} />
                 ))}
               </div>
 

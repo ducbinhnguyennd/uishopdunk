@@ -12,23 +12,34 @@ import CategoryList from '../../components/ListTheLoai/CategoryList'
 import ListBlog from '../../components/ListBlog/ListBlog'
 import ThanhDinhHuong from '../../components/ThanhDinhHuong/ThanhDinhHuong'
 import { Helmet } from 'react-helmet'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGift } from '@fortawesome/free-solid-svg-icons'
 
 const ChiTietLayout = () => {
-  const { tieude } = useParams()
+  const { tieude, loaisp } = useParams()
   const [product, setProduct] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [mausac, setMausac] = useState([])
-  const [mausac1, setMausac1] = useState([])
+  const [dungluong, setdungluong] = useState([])
+  const [dungluong1, setdungluong1] = useState([])
+  const [mausac1, setmausac1] = useState([])
 
+  useEffect(() => {
+    if (dungluong.length > 0) {
+      setdungluong1(dungluong[0].name)
+      if (dungluong[0].mausac.length > 0) {
+        setmausac1(dungluong[0].mausac[0].name)
+      }
+    }
+  }, [dungluong])
 
-  const fetchmausac = async () => {
+  const fetchdungluong = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3005/getmausacrieng/${tieude}`
+        `http://localhost:3005/dungluongmay/${loaisp}`
       )
       if (response.ok) {
         const data = await response.json()
-        setMausac(data)
+        setdungluong(data)
       }
     } catch (error) {
       console.error(error)
@@ -44,7 +55,6 @@ const ChiTietLayout = () => {
       const data = await response.json()
       if (response.ok) {
         setProduct(data)
-        console.log(data)
       } else {
         console.error('Không tìm thấy sản phẩm')
       }
@@ -56,7 +66,7 @@ const ChiTietLayout = () => {
   }
 
   useEffect(() => {
-    fetchmausac()
+    fetchdungluong()
     fetchProduct()
   }, [tieude])
 
@@ -81,91 +91,208 @@ const ChiTietLayout = () => {
       />
 
       <div className='main'>
-        <div className='product-detail'>
-          <div className='product-image'>
-            <img src={product.image} alt={product.name} className='pdt-img' />
-          </div>
+        <div className='product-image'>
+          <img src={product.image} alt={product.name} className='pdt-img' />
+        </div>
 
+        <div className='product-detail'>
           <div className='product-info'>
             <div className='product-name-chitiet'>{product.name}</div>
+            <div className='divratedanhgia_container'>
+              <div className='divratedanhgia'>
+                <div className='startdangia'>
+                  <img src='/star.png' alt='' width={15} height={15} />
+                  <img src='/star.png' alt='' width={15} height={15} />
+                  <img src='/star.png' alt='' width={15} height={15} />
+                  <img src='/star.png' alt='' width={15} height={15} />
+                  <img src='/star.png' alt='' width={15} height={15} />
+                </div>
+                <div className='danhgiarate'>Đánh giá</div>
+              </div>
+            </div>
             <div className='chitietprice'>
-              Giá: <span className='old-price'>50.000.000đ</span>{' '}
               <span className='current-price'>
                 {product.price.toLocaleString()}
               </span>
+              <span className='old-price'>50.000.000đ</span>{' '}
             </div>
-            <div className='mausac_chitiet'>
-              {mausac.map((item, index) => (
-                <div className={mausac1 === item.name ? `border_mausac border_mausac1` : `border_mausac`} key={index} onClick={()=>setMausac1(item.name)}>
-                  <div style={{ backgroundColor: `${item.name}` }}>
+            <div class='note_VAT'>(Đã bao gồm VAT)</div>
 
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div
-              className='description'
-              dangerouslySetInnerHTML={{ __html: product.mota }}
-            ></div>
-            <div className='short-description'>
-              <p>
-                <span style={{ color: 'red', fontWeight: 'bold' }}>
-                  Quý khách lưu ý:
-                </span>{' '}
-                khi lựa chọn mua bất kì sản phẩm nào nên chọn những cửa hàng có
-                thương hiệu lâu năm trên thị trường , chế độ bảo hành sản phẩm ,
-                mức độ hoàn thiện chi tiết sản phẩm :
-              </p>
-              <ul>
-                <li>
-                  <strong>Cửa hàng lâu năm</strong> trên thị trường vì họ đã có
-                  chỗ đứng nhất định cả về chất lượng cũng như giá cả vì với họ
-                  uy tín quý hơn vàng
-                </li>
-                <li>
-                  <strong>Chế độ bảo hành dài lâu :</strong> bảo hành trước và
-                  sau khi mua sản phẩm , chế độ bảo hành dài lâu , khi sử dụng
-                  cũ hoặc thời tiết hanh khô nứt có thể gửi về cửa hàng bảo hành
-                  miễn phí phun mới và sửa lại sản phẩm
-                </li>
-                <li>
-                  <strong>Mức độ sản phẩm :</strong> hoàn thiên kĩ đi hết vào
-                  các nét của tác phẩm , ko quật máy làm tù hết các đường nét
-                  tượng như hàng chợ giá rẻ hoặc 1 số cửa hàng buôn bán chộp
-                  giật , mọi đường nét được chải chuốt tinh sảo. Sử dụng sơn
-                  Oseven ( O7 Paint ) dòng Sơn cao cấp nhất , hoàn thiện 2 lớp
-                  lót , 1 lớp mờ nên khi nên tượng nhìn rất mòng hàng , bụi bẩn
-                  có thể phụt rửa thoải mái mà không sợ bay sơn Tượng làm đủ
-                  kích thước chuẩn , đúng tỉ lệ, ko co , ko độn kích tượng bằng
-                  cách nâng đế tượng, giảm chiều cao và chiều sâu thân tượng
-                  .Quý khách hãy thật thông thái khi lựa chọn sản phẩm để tránh
-                  mua phải hàng kém chất lượng
-                </li>
-              </ul>
-            </div>
+            <div className='mausac_dungluong'>
+              <div class='note_tieude'>Dung lượng:</div>
 
-            <div className='buttons'>
-              <a
-                href='https://zalo.me/0337252262'
-                target='_blank'
-                rel='noopener noreferrer'
-                className='buy-now'
-              >
-                <SiZalo className='icons' />
-                Zalo
-              </a>
-              <a href='tel:0985963784' className='contact'>
-                <IoMdCall className='icons' />
-                Gọi điện
-              </a>
+              <div className='dungluong_chitiet'>
+                {dungluong.map((item, index) => (
+                  <>
+                    <div className='dungluong_container' key={index}>
+                      <div
+                        className={
+                          dungluong1 === item.name
+                            ? 'dungluong_item dungluong_item_active'
+                            : 'dungluong_item'
+                        }
+                        onClick={() => setdungluong1(item.name)}
+                      >
+                        <span>{item.name}</span>
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </div>
+              <div class='note_tieude'>Màu sắc:</div>
+
+              <div className='mausac_chitiet'>
+                {dungluong.map((item, index) => (
+                  <>
+                    <div className='dungluong_container' key={index}>
+                      <div className='mausac_container'>
+                        {dungluong1 === item.name &&
+                          item.mausac.map((mau, row) => (
+                            <div
+                              className={
+                                mausac1 === mau.name
+                                  ? `border_mausac border_mausac1`
+                                  : `border_mausac`
+                              }
+                              key={row}
+                              onClick={() => setmausac1(mau.name)}
+                            >
+                              <div
+                                style={{ backgroundColor: `${mau.name}` }}
+                              ></div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </div>
             </div>
           </div>
-          <div className='category-sidebar'>
-            <CategoryList />
-            <ListBlog />
+          <div className='short-des'>
+            <p className='title'>
+              <FontAwesomeIcon icon={faGift} />
+              Ưu đãi
+            </p>
+            <div className='short-description'>
+              <div className='short-description-header'>
+                <span>
+                  ( Khuyến mãi dự kiến áp dụng{' '}
+                  <strong>đến 23h59 | 28/2/2025</strong>&nbsp;)
+                </span>
+              </div>
+              <hr />
+              <div style={{ display: 'flex' }}>
+                <div className='short-description-content'>
+                  <div className='event_price'>
+                    Ưu đãi mùa yêu Valentine 10/2 - 17/2 giảm thêm
+                  </div>
+                  <div className='event_value'>100,000 ₫</div>
+                  <div>
+                    Áp dụng màu Ultramarine (Xanh Lưu Ly). Được áp dụng cùng
+                    ZaloPay. Không áp dụng cùng CTKM khác.
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <p className='pchitiet'>
+                <strong className='pstrong'>I. Ưu đãi thanh toán&nbsp;</strong>
+              </p>
+              <p className='pchitiet lh-2'>
+                <span style={{ color: '#000000' }}>
+                  <img src='/tichxanh.jpe' alt='' width={16} height={17} />
+                  Hỗ trợ trả góp
+                  <strong> 0% </strong>
+                  lãi suất, 0 phụ phí
+                  <span style={{ color: '#007edb' }}> (xem chi tiết)</span>
+                </span>
+              </p>
+              <p className='pchitiet lh-2'>
+                <span style={{ color: '#000000' }}>
+                  <img src='/tichxanh.jpe' alt='' width={16} height={17} />
+                  Giảm đến
+                  <strong> 400.000đ </strong>
+                  khi thanh toán qua
+                  <strong> QR ZaloPay </strong>
+                  (SL có hạn)
+                </span>
+              </p>
+              <p className='pchitiet lh-2'>
+                <span style={{ color: '#000000' }}>
+                  <img src='/tichxanh.jpe' alt='' width={16} height={17} />
+                  Giảm đến
+                  <strong> 200.000đ </strong>
+                  khi thanh toán qua
+                  <strong> Kredivo </strong>
+                </span>
+              </p>
+              <p className='pchitiet'>
+                <strong className='pstrong'>II. Ưu đãi mua kèm &nbsp;</strong>
+              </p>
+              <p className='pchitiet lh-2'>
+                <span style={{ color: '#000000' }}>
+                  <img src='/tichxanh.jpe' alt='' width={16} height={17} />
+                  <strong> Ốp chính hãng Apple iPhone 16 series </strong>
+                  giảm
+                  <strong> 100.000đ </strong>
+                </span>
+              </p>
+              <p className='pchitiet lh-2'>
+                <span style={{ color: '#000000' }}>
+                  <img src='/tichxanh.jpe' alt='' width={16} height={17} />
+                  <strong> Sản phẩm Apple, phụ kiên </strong>
+                  giảm đên
+                  <strong> 80% </strong>
+                  <span style={{ color: '#007edb' }}>(xem chi tiết)</span>
+                </span>
+              </p>
+              <p className='pchitiet lh-2'>
+                <span style={{ color: '#000000' }}>
+                  <img src='/tichxanh.jpe' alt='' width={16} height={17} />
+                  Mua combo phụ kiện
+                  <strong> Non Apple </strong>
+                  giảm đến
+                  <strong> 200.000đ </strong>
+                </span>
+              </p>
+              <p className='pchitiet lh-2'>
+                <span style={{ color: '#000000' }}>
+                  <img src='/tichxanh.jpe' alt='' width={16} height={17} />
+                  Giảm đến
+                  <strong> 20% </strong>
+                  khi mua các gói bảo hành
+                  <span style={{ color: '#007edb' }}> (xem chi tiết)</span>
+                </span>
+              </p>
+              <p className='pchitiet'>
+                <strong className='pstrong'>III. Ưu đãi khác &nbsp;</strong>
+              </p>
+              <p className='pchitiet lh-2'>
+                <span style={{ color: '#000000' }}>
+                  <img src='/tichxanh.jpe' alt='' width={16} height={17} />
+                  Duy nhất tại ShopDunk, hỗ trợ mở thẻ tín dụng Sacombank hạn
+                  mức lên tới
+                  <strong> 25 triệu </strong>
+                  dành cho HS-SV
+                </span>
+              </p>
+              <p className='pchitiet lh-2'>
+                <span style={{ color: '#000000' }}>
+                  <img src='/tichxanh.jpe' alt='' width={16} height={17} />
+                   Trợ giá lên đời đến 
+                  <strong> 20% </strong>
+                  <span style={{ color: '#007edb' }}>(xem chi tiết)</span>
+                </span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
+      <div className='category-sidebar'>
+        <CategoryList />
+        <ListBlog />
+      </div>
+
       <div className='chitiet-footer'>
         <div className='footer-icons'>
           <div className='icon-item'>

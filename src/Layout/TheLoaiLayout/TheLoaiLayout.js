@@ -93,7 +93,7 @@ const TheLoaiLayout = () => {
             <Loading />
           ) : (
             productDetails.sanpham.map((sanpham) => (
-              <ProductCard key={sanpham._id} sanpham={sanpham} setLoading={setLoading} />
+              <ProductCard key={sanpham._id} sanpham={sanpham} setLoading={setLoading} nametheloai={productDetails.nametheloai}/>
             ))
           )}
         </div>
