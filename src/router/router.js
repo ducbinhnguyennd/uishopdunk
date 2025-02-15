@@ -14,6 +14,7 @@ import BaoMat from '../Layout/DeafaultLayout/HuongDan/BaoMat/BaoMat'
 import GioiThieu from '../Layout/DeafaultLayout/GioiThieu/GioiThieu'
 import TimKiemLayout from '../Layout/TimKiemLayout/TiemKiemLayout'
 import { AdminLayout } from '../Layout/Admin/TrangChuLayout'
+import { DangNhapLayout } from '../Layout/Admin/DangNhapLayout'
 
 const publicRoutes = [
   { path: '/', component: TrangChuLayout },
@@ -31,6 +32,7 @@ const publicRoutes = [
   { path: '/bao-mat', component: BaoMat },
   { path: '/gioi-thieu-do-tho-y-yen', component: GioiThieu },
   { path: '/admin', component: AdminLayout, layout: null },
+  { path: '/login-admin', component: DangNhapLayout, layout: null },
   { path: '/search/:keyword', component: TimKiemLayout }
 ]
 const privateRoutes = []

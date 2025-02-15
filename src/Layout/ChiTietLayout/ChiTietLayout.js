@@ -2,18 +2,15 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './ChiTietLayout.scss'
-import { CiDeliveryTruck } from 'react-icons/ci'
-import { TfiReload } from 'react-icons/tfi'
-import { AiOutlineDollar } from 'react-icons/ai'
-import { FiLifeBuoy } from 'react-icons/fi'
-import { SiZalo } from 'react-icons/si'
-import { IoMdCall } from 'react-icons/io'
-import CategoryList from '../../components/ListTheLoai/CategoryList'
+
 import ListBlog from '../../components/ListBlog/ListBlog'
 import ThanhDinhHuong from '../../components/ThanhDinhHuong/ThanhDinhHuong'
 import { Helmet } from 'react-helmet'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGift } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faGift } from '@fortawesome/free-solid-svg-icons'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const ChiTietLayout = () => {
   const { tieude, loaisp } = useParams()
@@ -22,15 +19,62 @@ const ChiTietLayout = () => {
   const [dungluong, setdungluong] = useState([])
   const [dungluong1, setdungluong1] = useState([])
   const [mausac1, setmausac1] = useState([])
+  const [annhmausac, setanhmausac] = useState([])
+  const [idmausac, setidmausac] = useState('')
+
+  const settings = {
+    dots: true, // Hiển thị chấm điều hướng
+    infinite: true, // Chạy lặp vô tận
+    speed: 500, // Tốc độ chuyển slide
+    slidesToShow: 5, // Hiển thị 3 ảnh trên cùng 1 hàng
+    slidesToScroll: 1, // Cuộn từng ảnh một
+    autoplay: true, // Tự động chạy
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 1024, // Khi màn hình nhỏ hơn 1024px thì hiển thị 2 ảnh
+        settings: {
+          slidesToShow: 2
+        }
+      },
+      {
+        breakpoint: 768, // Khi màn hình nhỏ hơn 768px thì hiển thị 1 ảnh
+        settings: {
+          slidesToShow: 1
+        }
+      }
+    ]
+  }
 
   useEffect(() => {
     if (dungluong.length > 0) {
       setdungluong1(dungluong[0].name)
       if (dungluong[0].mausac.length > 0) {
         setmausac1(dungluong[0].mausac[0].name)
+        setidmausac(dungluong[0].mausac[0]._id)
       }
     }
   }, [dungluong])
+
+  const handleChangeDungLuong = name => {
+    setdungluong1(name)
+
+    // Tìm dung lượng mới
+    const dungLuongMoi = dungluong.find(dl => dl.name === name)
+    if (!dungLuongMoi) return
+
+    // Kiểm tra màu sắc hiện tại có trong dung lượng mới không
+    const mauHienTai = dungLuongMoi.mausac.find(mau => mau.name === mausac1)
+
+    if (mauHienTai) {
+      // Nếu có, giữ nguyên màu nhưng cập nhật ID
+      setidmausac(mauHienTai._id)
+    } else if (dungLuongMoi.mausac.length > 0) {
+      // Nếu không, chọn màu đầu tiên của dung lượng mới
+      setmausac1(dungLuongMoi.mausac[0].name)
+      setidmausac(dungLuongMoi.mausac[0]._id)
+    }
+  }
 
   const fetchdungluong = async () => {
     try {
@@ -65,10 +109,28 @@ const ChiTietLayout = () => {
     }
   }
 
+  const fetchanhmausac = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3005/getanhmausac/${idmausac}`
+      )
+      const data = await response.json()
+      if (response.ok) {
+        setanhmausac(data)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   useEffect(() => {
     fetchdungluong()
     fetchProduct()
   }, [tieude])
+
+  useEffect(() => {
+    fetchanhmausac()
+  }, [idmausac])
 
   if (isLoading) {
     return <p>Đang tải dữ liệu...</p>
@@ -92,7 +154,18 @@ const ChiTietLayout = () => {
 
       <div className='main'>
         <div className='product-image'>
-          <img src={product.image} alt={product.name} className='pdt-img' />
+          <div>
+            <img src={product.image} alt={product.name} className='pdt-img' />
+          </div>
+          <div className='anhchay'>
+            <Slider {...settings}>
+              {annhmausac.map((anh, index) => (
+                <div className='banner_item' key={index}>
+                  <img src={`${anh}`} alt='Banner 1' width={24} height={100} />
+                </div>
+              ))}
+            </Slider>
+          </div>
         </div>
 
         <div className='product-detail'>
@@ -131,7 +204,7 @@ const ChiTietLayout = () => {
                             ? 'dungluong_item dungluong_item_active'
                             : 'dungluong_item'
                         }
-                        onClick={() => setdungluong1(item.name)}
+                        onClick={() => handleChangeDungLuong(item.name)}
                       >
                         <span>{item.name}</span>
                       </div>
@@ -155,7 +228,10 @@ const ChiTietLayout = () => {
                                   : `border_mausac`
                               }
                               key={row}
-                              onClick={() => setmausac1(mau.name)}
+                              onClick={() => {
+                                setmausac1(mau.name)
+                                setidmausac(mau._id)
+                              }}
                             >
                               <div
                                 style={{ backgroundColor: `${mau.name}` }}
@@ -279,21 +355,77 @@ const ChiTietLayout = () => {
               <p className='pchitiet lh-2'>
                 <span style={{ color: '#000000' }}>
                   <img src='/tichxanh.jpe' alt='' width={16} height={17} />
-                   Trợ giá lên đời đến 
+                  Trợ giá lên đời đến
                   <strong> 20% </strong>
                   <span style={{ color: '#007edb' }}>(xem chi tiết)</span>
                 </span>
               </p>
             </div>
           </div>
+          <div className='divbtn_muagay'>MUA NGAY</div>
+          <div className='short-des'>
+            <p className='pchitiet lh-2'>
+              <span style={{ color: '#000000' }}>
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className='icontichxanh'
+                />
+                <span>
+                  {' '}
+                  Bộ sản phẩm gồm: Hộp, Sách hướng dẫn, Cây lấy sim, Cáp Type C
+                </span>
+              </span>
+            </p>
+            <p className='pchitiet lh-2'>
+              <span style={{ color: '#000000' }}>
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className='icontichxanh'
+                />
+                <span>
+                  {' '}
+                  Miễn phí 1 đổi 1 trong 30 ngày đầu tiên (nếu có lỗi do NSX)
+                </span>
+              </span>
+            </p>
+            <p className='pchitiet lh-2'>
+              <span style={{ color: '#000000' }}>
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className='icontichxanh'
+                />
+                <span> Bảo hành chính hãng 1 năm</span>
+                <span style={{ color: '#007edb' }}> (chi tiết)</span>
+              </span>
+            </p>
+            <p className='pchitiet lh-2'>
+              <span style={{ color: '#000000' }}>
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className='icontichxanh'
+                />
+                <span> Giao hàng nhanh toàn quốc</span>
+                <span style={{ color: '#007edb' }}> (chi tiết)</span>
+              </span>
+            </p>
+            <p className='pchitiet lh-2'>
+              <span style={{ color: '#000000' }}>
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  className='icontichxanh'
+                />
+                <span> Tax Refund For Foreingers</span>
+                <span style={{ color: '#007edb' }}> (chi tiết)</span>
+              </span>
+            </p>
+          </div>
         </div>
       </div>
       <div className='category-sidebar'>
-        <CategoryList />
         <ListBlog />
       </div>
 
-      <div className='chitiet-footer'>
+      {/* <div className='chitiet-footer'>
         <div className='footer-icons'>
           <div className='icon-item'>
             <CiDeliveryTruck
@@ -343,7 +475,7 @@ const ChiTietLayout = () => {
             className='img-footer'
           />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

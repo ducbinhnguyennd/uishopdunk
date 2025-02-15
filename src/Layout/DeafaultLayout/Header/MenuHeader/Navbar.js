@@ -12,7 +12,7 @@ const Navbar = ({ onMenuSelect }) => {
     const fetchCategories = async () => {
       try {
         const response = await fetch(
-          "https://demovemaybay.shop/theloaisanpham"
+          "http://localhost:3005/theloaisanpham"
         );
         const data = await response.json();
         setCategories(data);
