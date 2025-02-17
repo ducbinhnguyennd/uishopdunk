@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { FaPlus } from 'react-icons/fa'
 import { AddBlog } from './AddBlog'
 import { XoaBlog } from './XoaBlog'
-
+import './BlogLayout.scss'
 function BlogLayout () {
   const [data, setdata] = useState([])
 
@@ -12,7 +12,7 @@ function BlogLayout () {
 
   const fetchdata = async () => {
     try {
-      const response = await fetch('https://demovemaybay.shop/getblog')
+      const response = await fetch('http://localhost:3005/getblog')
       if (response.ok) {
         const data = await response.json()
         setdata(data)
@@ -25,7 +25,7 @@ function BlogLayout () {
     fetchdata()
   }, [])
   return (
-    <div>
+    <div className='blog_container'>
       <button className='btnthemtheloai' onClick={() => setIsOpenAdd(true)}>
         <FaPlus className='icons' />
         Thêm Blog

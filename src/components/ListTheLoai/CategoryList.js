@@ -6,7 +6,7 @@ const CategoryList = () => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
-    fetch('https://demovemaybay.shop/theloaisanpham')
+    fetch('http://localhost:3005/theloaisanpham')
       .then(response => response.json())
       .then(data => setCategories(data))
       .catch(error => console.error('Error fetching categories:', error))

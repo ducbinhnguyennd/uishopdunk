@@ -1,22 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ModalBig } from '../../../components/ModalBig'
 import { useState, useEffect } from 'react'
-import { FaPlus } from 'react-icons/fa'
+import { FaEdit, FaPlus } from 'react-icons/fa'
 import { AddSanPham } from './AddSanPham'
 import { XoaSanPham } from './XoaSanPham'
+import { UpdateSanPham } from './UpdateSanPham'
+import { FaTrashCan } from 'react-icons/fa6'
 
 function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
   const [data, setdata] = useState([])
   const [isOpenThem, setIsOpenThem] = useState(false)
+  const [isOpenEdit, setIsOpenEdit] = useState(false)
   const [isOpenXoa, setIsOpenXoa] = useState(false)
-  const [idsanpham, setidsanpham] = useState('')
   const [loading, setloading] = useState(true)
+  const [selectedIds, setSelectedIds] = useState([])
+  const [selectAll, setSelectAll] = useState(false)
+
   const fetchdata = async () => {
     if (idtheloai) {
       setloading(true)
       try {
         const response = await fetch(
-          `https://demovemaybay.shop/getsanpham/${idtheloai}`
+          `http://localhost:3005/getsanpham/${idtheloai}`
         )
         if (response.ok) {
           const data = await response.json()
@@ -33,25 +38,94 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
   }
 
   useEffect(() => {
-    fetchdata()
-  }, [idtheloai])
+    if (idtheloai && isOpen) {
+      fetchdata()
+    }
+  }, [idtheloai, isOpen])
+
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectedIds([])
+    } else {
+      setSelectedIds(data.map(item => item._id))
+    }
+    setSelectAll(!selectAll)
+  }
+
+  const handleSelectItem = id => {
+    let newSelectedIds = [...selectedIds]
+    if (newSelectedIds.includes(id)) {
+      newSelectedIds = newSelectedIds.filter(itemId => itemId !== id)
+    } else {
+      newSelectedIds.push(id)
+    }
+    setSelectedIds(newSelectedIds)
+
+    setSelectAll(newSelectedIds.length === data.length)
+  }
 
   return (
-    <ModalBig isOpen={isOpen} onClose={onClose}>
+    <ModalBig
+      isOpen={isOpen}
+      onClose={() => {
+        onClose()
+        setSelectedIds([])
+        setSelectAll(false)
+      }}
+    >
       <div>
-        <button className='btnthemtheloai' onClick={() => setIsOpenThem(true)}>
-          <FaPlus className='icons' />
-          Thêm sản phẩm
-        </button>
+        <div className='nav_chucnang'>
+          <button
+            className='btnthemtheloai'
+            onClick={() => setIsOpenThem(true)}
+          >
+            <FaPlus className='icons' />
+            Thêm sản phẩm
+          </button>
+          <button
+            className='btnthemtheloai'
+            onClick={() => {
+              if (selectedIds.length === 0) {
+                alert('Chọn một thể loại để cập nhật')
+              } else if (selectedIds.length > 1) {
+                alert('Chỉ được chọn một thể loại để cập nhật')
+              } else {
+                setIsOpenEdit(true)
+              }
+            }}
+          >
+            <FaEdit className='icons' />
+            Cập nhật
+          </button>
+
+          <button
+            className='btnthemtheloai'
+            onClick={() =>
+              selectedIds.length > 0
+                ? setIsOpenXoa(true)
+                : alert('Chọn thể loại để xóa')
+            }
+          >
+            <FaTrashCan className='icons' />
+            Xóa sản phẩm
+          </button>
+        </div>
+
         <table className='tablenhap'>
           <thead>
             <tr>
+              <th>
+                <input
+                  type='checkbox'
+                  checked={selectAll}
+                  onChange={handleSelectAll}
+                />
+              </th>
               <th>STT</th>
               <th>ID</th>
               <th>Ảnh</th>
               <th>Tên sản phẩm</th>
               <th>Giá</th>
-              <th>Chức năng</th>
             </tr>
           </thead>
           <tbody>
@@ -62,6 +136,13 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
             ) : data.length > 0 ? (
               data.map((item, index) => (
                 <tr key={index}>
+                  <td>
+                    <input
+                      type='checkbox'
+                      checked={selectedIds.includes(item._id)}
+                      onChange={() => handleSelectItem(item._id)}
+                    />
+                  </td>
                   <td>{index + 1}</td>
                   <td>{item._id}</td>
                   <td>
@@ -69,17 +150,6 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
                   </td>
                   <td>{item.name}</td>
                   <td>{item.price}</td>
-                  <td className='tdchucnang'>
-                    <button
-                      onClick={() => {
-                        setIsOpenXoa(true)
-                        setidsanpham(item._id)
-                      }}
-                    >
-                      Xóa
-                    </button>
-                    <button>Cập nhật</button>
-                  </td>
                 </tr>
               ))
             ) : (
@@ -96,11 +166,19 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
         idtheloai={idtheloai}
         fetchData={fetchdata}
       />
+      <UpdateSanPham
+        isOpen={isOpenEdit}
+        onClose={() => setIsOpenEdit(false)}
+        idsanpham={selectedIds}
+        fetchData={fetchdata}
+        setSelectedIds={setSelectedIds}
+      />
       <XoaSanPham
         isOpen={isOpenXoa}
         onClose={() => setIsOpenXoa(false)}
-        idsanpham={idsanpham}
+        idsanpham={selectedIds}
         fetchdata={fetchdata}
+        setSelectedIds={setSelectedIds}
       />
     </ModalBig>
   )

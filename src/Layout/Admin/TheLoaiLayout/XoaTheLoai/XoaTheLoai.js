@@ -7,12 +7,13 @@ function XoaTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
   const handlexoatheloai = async () => {
     try {
       const response = await fetch(
-        `https://demovemaybay.shop/deletetheloai/${idtheloai}`,
+        `http://localhost:3005/deletehangloatloaisp`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          body: JSON.stringify({ ids: idtheloai })
         }
       )
       if (response.ok) {

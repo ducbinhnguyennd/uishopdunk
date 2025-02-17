@@ -1,17 +1,41 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Modal } from '../../../../components/Modal'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import './AddSanPham.scss'
 
-function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
+function UpdateSanPham ({ isOpen, onClose, idsanpham, fetchData,setSelectedIds
+ }) {
   const [name, setname] = useState('')
   const [price, setprice] = useState('')
   const [image, setimage] = useState('')
   const [file, setFile] = useState(null)
   const [mota, setmota] = useState('')
 
-  const handelAddsanpham = async () => {
+  const fetchchitiet = async (req, res) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3005/getchitietspadmin/${idsanpham}`
+      )
+      const data = await response.json()
+      if (response.ok) {
+        setname(data.name)
+        setmota(data.content)
+        setprice(data.price)
+        setimage(data.image)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (idsanpham && isOpen) {
+      fetchchitiet()
+    }
+  }, [idsanpham, isOpen])
+
+  const handelUpdate = async () => {
     try {
       const formData = new FormData()
       formData.append('name', name)
@@ -22,7 +46,7 @@ function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
       }
 
       const response = await fetch(
-        `https://demovemaybay.shop/postsanpham/${idtheloai}`,
+        `http://localhost:3005/updatechitietsp/${idsanpham}`,
         {
           method: 'POST',
           body: formData
@@ -31,6 +55,7 @@ function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
 
       if (response.ok) {
         onClose()
+        setSelectedIds([])
         fetchData()
       }
     } catch (error) {
@@ -43,8 +68,8 @@ function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
       <div>
         <h2>Thêm sản phẩm</h2>
         <div className='div_input_group'>
-          <div className='input-group1'>
-            {image !== '' ? <img src={image} alt='' /> : <h3>Ảnh sản phẩm</h3>}
+          <div className='input-group'>
+            <img src={image} alt='' />
           </div>
           <div className='input-group'>
             <label> Ảnh</label>
@@ -83,8 +108,8 @@ function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
         />
 
         <div className='button-group'>
-          <button className='btnaddtl' onClick={handelAddsanpham}>
-            Thêm
+          <button className='btnaddtl' onClick={handelUpdate}>
+            Cập nhật
           </button>
         </div>
       </div>
@@ -92,4 +117,4 @@ function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
   )
 }
 
-export default AddSanPham
+export default UpdateSanPham

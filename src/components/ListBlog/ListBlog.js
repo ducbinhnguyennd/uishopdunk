@@ -5,7 +5,7 @@ const ListBlog = () => {
   const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
-    fetch('https://demovemaybay.shop/getblog')
+    fetch('http://localhost:3005/getblog')
       .then(response => response.json())
       .then(data => setBlogs(data))
       .catch(error => console.error('Error fetching blogs:', error))
@@ -18,7 +18,7 @@ const ListBlog = () => {
         {blogs.slice(0, 3).map(blog => (
           <div key={blog._id} className='news-item'>
             <div className='news-thumbnail'>
-              <img src={"https://shopdunk.com/images/thumbs/0019069__DSC4273%20(1)_1600.jpeg"} alt={blog.tieude_blog} />
+              <img src={blog.img_blog} alt={blog.tieude_blog} />
             </div>
             <div className='news-content'>
               <a
@@ -29,7 +29,7 @@ const ListBlog = () => {
               >
                 {blog.tieude_blog}
               </a>
-              <p className='news-date'>09/02/2025</p>
+              <p className='news-date'>{blog.ngay_tao}</p>
             </div>
           </div>
         ))}
