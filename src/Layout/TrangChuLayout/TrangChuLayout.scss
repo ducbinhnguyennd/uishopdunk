@@ -34,7 +34,11 @@
   font-size: 20px;
 
 }
-
+.topic-block-body{
+  display: flex;
+  justify-content: center;
+  margin: 20px 15%;
+}
 .divtungsp {
   height: 440px;
   padding: 5px;
