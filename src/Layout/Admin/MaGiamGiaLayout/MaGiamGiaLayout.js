@@ -3,6 +3,7 @@ import { FaEdit, FaPlus } from 'react-icons/fa'
 
 import {FaTrashCan } from 'react-icons/fa6'
 import { AddMaGiamGia } from './AddMaGiamGia'
+import { UpdateMaGiamGia } from './UpdateMaGiamGia'
 
 function MaGiamGiaLayout () {
   const [data, setData] = useState([])
@@ -96,6 +97,7 @@ function MaGiamGiaLayout () {
               />
             </th>
             <th>STT</th>
+            <th>ID</th>
             <th>Mã giảm giá</th>
             <th>Ngày bắt đầu</th>
             <th>Ngày kết thúc</th>
@@ -114,6 +116,7 @@ function MaGiamGiaLayout () {
                 />
               </td>
               <td>{index + 1}</td>
+              <td>{item._id}</td>
               <td>{item.magiamgia}</td>
               <td>{item.ngaybatdau}</td>
               <td>{item.ngayketthuc}</td>
@@ -137,13 +140,13 @@ function MaGiamGiaLayout () {
         idtheloai={selectedIds}
         fetchdata={fetchdata}
         setSelectedIds={setSelectedIds}
-      />
-      <CapNhatTheLoai
+      /> */}
+      <UpdateMaGiamGia
         isOpen={isOpenCapNhat}
         onClose={() => setisOpenCapNhat(false)}
-        idtheloai={selectedIds}
+        idmagiamgia={selectedIds}
         fetchdata={fetchdata}
-      /> */}
+      />
     </div>
   )
 }

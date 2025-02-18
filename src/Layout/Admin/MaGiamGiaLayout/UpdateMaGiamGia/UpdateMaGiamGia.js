@@ -1,8 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Modal } from '../../../../components/Modal'
-import { useState } from 'react'
-import './AddMaGG.scss'
+import { useEffect, useState } from 'react'
 
-function AddMaGiamGia ({ isOpen, onClose, fetchdata }) {
+function UpdateMaGiamGia ({ isOpen, onClose, fetchdata, idmagiamgia }) {
   const [soluong, setsoluong] = useState(0)
   const [phantram, setphantram] = useState(0)
   const [ngaybatdau, setngaybatdau] = useState('')
@@ -10,24 +10,49 @@ function AddMaGiamGia ({ isOpen, onClose, fetchdata }) {
 
   const handelClose = () => {
     setsoluong('')
-
     onClose()
   }
 
-  const handelAddMaGiamGia = async () => {
+  const fetchchitiet = async () => {
     try {
-      const response = await fetch('http://localhost:3005/postmagg', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          soluong,
-          sophantram: phantram,
-          ngaybatdau,
-          ngayketthuc
-        })
-      })
+      const response = await fetch(
+        `http://localhost:3005/getchitietmagg/${idmagiamgia}`
+      )
+      const data = await response.json()
+      if (response.ok) {
+        setsoluong(data.soluong)
+        setphantram(data.sophantram)
+        setngaybatdau(data.ngaybatdau ? data.ngaybatdau.split('T')[0] : '')
+        setngayketthuc(data.ngayketthuc ? data.ngayketthuc.split('T')[0] : '')
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (idmagiamgia && isOpen) {
+      fetchchitiet()
+    }
+  }, [idmagiamgia, isOpen])
+
+  const handelUpdateMaGiamGia = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3005/updatemagg/${idmagiamgia}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            soluong,
+            sophantram: phantram,
+            ngaybatdau,
+            ngayketthuc
+          })
+        }
+      )
       if (response.ok) {
         handelClose()
         fetchdata()
@@ -39,7 +64,7 @@ function AddMaGiamGia ({ isOpen, onClose, fetchdata }) {
   return (
     <Modal isOpen={isOpen} onClose={handelClose}>
       <div className='addtheloai'>
-        <h2>Thêm mã giảm giá</h2>
+        <h2>Cập nhật mã giảm giá</h2>
         <div className='div_input_group'>
           <div className='input-group'>
             <input
@@ -72,8 +97,8 @@ function AddMaGiamGia ({ isOpen, onClose, fetchdata }) {
         </div>
 
         <div className='button-group'>
-          <button onClick={handelAddMaGiamGia} className='btnaddtl'>
-            Thêm
+          <button onClick={handelUpdateMaGiamGia} className='btnaddtl'>
+            Cập nhật
           </button>
         </div>
       </div>
@@ -81,4 +106,4 @@ function AddMaGiamGia ({ isOpen, onClose, fetchdata }) {
   )
 }
 
-export default AddMaGiamGia
+export default UpdateMaGiamGia
