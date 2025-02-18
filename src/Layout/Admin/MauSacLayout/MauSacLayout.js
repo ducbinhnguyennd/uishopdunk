@@ -2,12 +2,14 @@
 import { ModalBig } from '../../../components/ModalBig'
 import { useState, useEffect } from 'react'
 import { FaEdit, FaPlus } from 'react-icons/fa'
-import { AddSanPham } from './AddSanPham'
-import { XoaSanPham } from './XoaSanPham'
-import { UpdateSanPham } from './UpdateSanPham'
-import { FaTrashCan } from 'react-icons/fa6'
 
-function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
+import { FaTrashCan } from 'react-icons/fa6'
+import { AddMauSac } from './AddMauSac'
+import { UpdateMauSac } from './UpdateMauSac'
+import { XoaMauSac } from './XoaMauSac'
+import './MauSacLayout.scss'
+
+function MauSacLayout ({ isOpen, onClose, iddungluong }) {
   const [data, setdata] = useState([])
   const [isOpenThem, setIsOpenThem] = useState(false)
   const [isOpenEdit, setIsOpenEdit] = useState(false)
@@ -17,11 +19,11 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
   const [selectAll, setSelectAll] = useState(false)
 
   const fetchdata = async () => {
-    if (idtheloai) {
+    if (iddungluong) {
       setloading(true)
       try {
         const response = await fetch(
-          `http://localhost:3005/getsanpham/${idtheloai}`
+          `http://localhost:3005/mausac/${iddungluong}`
         )
         if (response.ok) {
           const data = await response.json()
@@ -38,10 +40,10 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
   }
 
   useEffect(() => {
-    if (idtheloai && isOpen) {
+    if (iddungluong && isOpen) {
       fetchdata()
     }
-  }, [idtheloai, isOpen])
+  }, [iddungluong, isOpen])
 
   const handleSelectAll = () => {
     if (selectAll) {
@@ -80,15 +82,15 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
             onClick={() => setIsOpenThem(true)}
           >
             <FaPlus className='icons' />
-            Thêm sản phẩm
+            Thêm màu sắc
           </button>
           <button
             className='btnthemtheloai'
             onClick={() => {
               if (selectedIds.length === 0) {
-                alert('Chọn một sản phẩm để cập nhật')
+                alert('Chọn một màu sắc để cập nhật')
               } else if (selectedIds.length > 1) {
-                alert('Chỉ được chọn một sản phẩm để cập nhật')
+                alert('Chỉ được chọn một màu sắc để cập nhật')
               } else {
                 setIsOpenEdit(true)
               }
@@ -103,12 +105,13 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
             onClick={() =>
               selectedIds.length > 0
                 ? setIsOpenXoa(true)
-                : alert('Chọn sản phẩm để xóa')
+                : alert('Chọn màu sắc để xóa')
             }
           >
             <FaTrashCan className='icons' />
-            Xóa sản phẩm
+            Xóa màu sắc
           </button>
+
         </div>
 
         <table className='tablenhap'>
@@ -123,8 +126,8 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
               </th>
               <th>STT</th>
               <th>ID</th>
-              <th>Ảnh</th>
-              <th>Tên sản phẩm</th>
+              <th>Mã màu sắc</th>
+              <th>Màu sắc</th>
               <th>Giá</th>
             </tr>
           </thead>
@@ -145,11 +148,19 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
                   </td>
                   <td>{index + 1}</td>
                   <td>{item._id}</td>
-                  <td>
-                    <img src={`${item.image}`} alt='' />
-                  </td>
                   <td>{item.name}</td>
+                  
+
+                  <td>
+                    <div className='div_color_mausac'>
+                      <div
+                        className='color_mausac'
+                        style={{ background: `${item.name}` }}
+                      ></div>
+                    </div>
+                  </td>
                   <td>{item.price}</td>
+
                 </tr>
               ))
             ) : (
@@ -160,23 +171,23 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
           </tbody>
         </table>
       </div>
-      <AddSanPham
+      <AddMauSac
         isOpen={isOpenThem}
         onClose={() => setIsOpenThem(false)}
-        idtheloai={idtheloai}
+        iddungluong={iddungluong}
         fetchData={fetchdata}
       />
-      <UpdateSanPham
+      <UpdateMauSac
         isOpen={isOpenEdit}
         onClose={() => setIsOpenEdit(false)}
-        idsanpham={selectedIds}
+        idmausac={selectedIds}
         fetchData={fetchdata}
         setSelectedIds={setSelectedIds}
       />
-      <XoaSanPham
+      <XoaMauSac
         isOpen={isOpenXoa}
         onClose={() => setIsOpenXoa(false)}
-        idsanpham={selectedIds}
+        idmausac={selectedIds}
         fetchdata={fetchdata}
         setSelectedIds={setSelectedIds}
       />
@@ -184,4 +195,4 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
   )
 }
 
-export default SanPhamLayout
+export default MauSacLayout

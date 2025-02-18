@@ -4,8 +4,13 @@ import { useState, useEffect } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
-function UpdateSanPham ({ isOpen, onClose, idsanpham, fetchData,setSelectedIds
- }) {
+function UpdateSanPham ({
+  isOpen,
+  onClose,
+  idsanpham,
+  fetchData,
+  setSelectedIds
+}) {
   const [name, setname] = useState('')
   const [price, setprice] = useState('')
   const [image, setimage] = useState('')
@@ -34,6 +39,14 @@ function UpdateSanPham ({ isOpen, onClose, idsanpham, fetchData,setSelectedIds
       fetchchitiet()
     }
   }, [idsanpham, isOpen])
+  const handelclose = () => {
+    setname('')
+    setmota('')
+    setprice('')
+    setimage('')
+    setFile(null)
+    onClose()
+  }
 
   const handelUpdate = async () => {
     try {
@@ -54,7 +67,7 @@ function UpdateSanPham ({ isOpen, onClose, idsanpham, fetchData,setSelectedIds
       )
 
       if (response.ok) {
-        onClose()
+        handelclose()
         setSelectedIds([])
         fetchData()
       }
@@ -64,9 +77,9 @@ function UpdateSanPham ({ isOpen, onClose, idsanpham, fetchData,setSelectedIds
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={handelclose}>
       <div>
-        <h2>Thêm sản phẩm</h2>
+        <h2>Cập nhật sản phẩm</h2>
         <div className='div_input_group'>
           <div className='input-group'>
             <img src={image} alt='' />

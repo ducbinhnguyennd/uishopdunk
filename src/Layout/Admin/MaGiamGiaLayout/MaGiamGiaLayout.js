@@ -1,26 +1,20 @@
 import { useState, useEffect } from 'react'
-import './TheLoaiLayout.scss'
-import { FaEdit, FaPlus, FaSignal } from 'react-icons/fa'
-import { AddTheLoai } from './AddTheLoai'
-import { SanPhamLayout } from '../SanPhamLayout'
-import { XoaTheLoai } from './XoaTheLoai'
-import { CapNhatTheLoai } from './UpdateTheLoai/CapNhatTheLoai'
-import { FaMobile, FaTrashCan } from 'react-icons/fa6'
-import { DungLuongLayout } from '../DungLuongLayout'
+import { FaEdit, FaPlus } from 'react-icons/fa'
 
-function TheLoaiLayout () {
+import {FaTrashCan } from 'react-icons/fa6'
+import { AddMaGiamGia } from './AddMaGiamGia'
+
+function MaGiamGiaLayout () {
   const [data, setData] = useState([])
   const [selectedIds, setSelectedIds] = useState([])
   const [selectAll, setSelectAll] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [isOpenSp, setisOpenSp] = useState(false)
   const [isOpenXoaTL, setisOpenXoaTL] = useState(false)
   const [isOpenCapNhat, setisOpenCapNhat] = useState(false)
-  const [isOpenDungLuong, setisOpenDungLuong] = useState(false)
 
   const fetchdata = async () => {
     try {
-      const response = await fetch('http://localhost:3005/theloaiadmin')
+      const response = await fetch('http://localhost:3005/getmagg')
       if (response.ok) {
         const data = await response.json()
         setData(data)
@@ -60,15 +54,15 @@ function TheLoaiLayout () {
       <div className='nav_chucnang'>
         <button className='btnthemtheloai' onClick={() => setIsOpen(true)}>
           <FaPlus className='icons' />
-          Thêm thể loại
+          Thêm mã giảm giá
         </button>
         <button
           className='btnthemtheloai'
           onClick={() => {
             if (selectedIds.length === 0) {
-              alert('Chọn một thể loại để cập nhật')
+              alert('Chọn một mã giảm giá để cập nhật')
             } else if (selectedIds.length > 1) {
-              alert('Chỉ được chọn một thể loại để cập nhật')
+              alert('Chỉ được chọn một mã giảm giá để cập nhật')
             } else {
               setisOpenCapNhat(true)
             }
@@ -82,43 +76,13 @@ function TheLoaiLayout () {
           onClick={() =>
             selectedIds.length > 0
               ? setisOpenXoaTL(true)
-              : alert('Chọn thể loại để xóa')
+              : alert('Chọn mã giảm giá để xóa')
           }
         >
           <FaTrashCan className='icons' />
-          Xóa thể loại
-        </button>
-        <button
-          className='btnthemtheloai'
-          onClick={() => {
-            if (selectedIds.length === 0) {
-              alert('Chọn một thể loại để xem sản phẩm')
-            } else if (selectedIds.length > 1) {
-              alert('Chỉ được chọn một thể loại để xem sản phẩm')
-            } else {
-              setisOpenSp(true)
-            }
-          }}
-        >
-          <FaMobile className='icons' />
-          Sản Phẩm
+          Xóa mã giảm giá
         </button>
 
-        <button
-          className='btnthemtheloai'
-          onClick={() => {
-            if (selectedIds.length === 0) {
-              alert('Chọn một thể loại để xem dung lượng')
-            } else if (selectedIds.length > 1) {
-              alert('Chỉ được chọn một thể loại để xem dung lượng')
-            } else {
-              setisOpenDungLuong(true)
-            }
-          }}
-        >
-          <FaSignal className='icons' />
-          Dung lượng
-        </button>
       </div>
 
       <table className='tablenhap'>
@@ -132,10 +96,11 @@ function TheLoaiLayout () {
               />
             </th>
             <th>STT</th>
-            <th>Tên thể loại</th>
-            <th>Ram</th>
-            <th>Dung lượng</th>
-            <th>Hãng</th>
+            <th>Mã giảm giá</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
+            <th>Số lượng</th>
+            <th>Phần trăm</th>
           </tr>
         </thead>
         <tbody>
@@ -149,31 +114,24 @@ function TheLoaiLayout () {
                 />
               </td>
               <td>{index + 1}</td>
-              <td>{item.name}</td>
-              <td>{item.ram}</td>
-              <td>{item.dungluong}</td>
-              <td>{item.hang}</td>
+              <td>{item.magiamgia}</td>
+              <td>{item.ngaybatdau}</td>
+              <td>{item.ngayketthuc}</td>
+              <td>{item.soluong}</td>
+              <td>{item.sophantram}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <AddTheLoai
+      <AddMaGiamGia
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         fetchdata={fetchdata}
       />
-      <SanPhamLayout
-        isOpen={isOpenSp}
-        onClose={() => setisOpenSp(false)}
-        idtheloai={selectedIds}
-      />
-      <DungLuongLayout
-        isOpen={isOpenDungLuong}
-        onClose={() => setisOpenDungLuong(false)}
-        idtheloai={selectedIds}
-      />
-      <XoaTheLoai
+
+
+      {/* <XoaTheLoai
         isOpen={isOpenXoaTL}
         onClose={() => setisOpenXoaTL(false)}
         idtheloai={selectedIds}
@@ -185,9 +143,9 @@ function TheLoaiLayout () {
         onClose={() => setisOpenCapNhat(false)}
         idtheloai={selectedIds}
         fetchdata={fetchdata}
-      />
+      /> */}
     </div>
   )
 }
 
-export default TheLoaiLayout
+export default MaGiamGiaLayout

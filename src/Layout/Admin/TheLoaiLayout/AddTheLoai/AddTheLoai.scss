@@ -15,7 +15,8 @@
 }
 .input-group1 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     margin-bottom: 10px;
     justify-content: center;
     align-items: center;

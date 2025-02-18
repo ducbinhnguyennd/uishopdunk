@@ -15,6 +15,21 @@ function AddTheLoai ({ isOpen, onClose, fetchdata }) {
   const [hang, sethang] = useState('')
   const [congsac, setcongsac] = useState('')
   const [thongtin, sethongtin] = useState('')
+
+  const handelClose = () => {
+  setname('')
+  setManhinh('')
+  setChip('')
+  setRam('')
+  setdungluong('')
+  setCamera('')
+  setpinsac('')
+  sethang('')
+  setcongsac('')
+  sethongtin('')
+  onClose()
+}
+
   const handelAddTheLoai = async () => {
     try {
       const response = await fetch('http://localhost:3005/postloaisp', {
@@ -36,7 +51,7 @@ function AddTheLoai ({ isOpen, onClose, fetchdata }) {
         })
       })
       if (response.ok) {
-        onClose()
+        handelClose()
         fetchdata()
       }
     } catch (error) {
@@ -44,7 +59,7 @@ function AddTheLoai ({ isOpen, onClose, fetchdata }) {
     }
   }
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={handelClose}>
       <div className='addtheloai'>
         <h2>Thêm thể loại</h2>
         <div className='div_input_group'>

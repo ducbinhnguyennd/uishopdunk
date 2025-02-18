@@ -20,6 +20,7 @@ const ChiTietLayout = () => {
   const [dungluong1, setdungluong1] = useState([])
   const [mausac1, setmausac1] = useState([])
   const [annhmausac, setanhmausac] = useState([])
+  const [pricemausac,setpricemausac] = useState(0)
   const [idmausac, setidmausac] = useState('')
 
   const settings = {
@@ -52,6 +53,7 @@ const ChiTietLayout = () => {
       if (dungluong[0].mausac.length > 0) {
         setmausac1(dungluong[0].mausac[0].name)
         setidmausac(dungluong[0].mausac[0]._id)
+        setpricemausac(dungluong[0].mausac[0].price)
       }
     }
   }, [dungluong])
@@ -59,22 +61,21 @@ const ChiTietLayout = () => {
   const handleChangeDungLuong = name => {
     setdungluong1(name)
 
-    // Tìm dung lượng mới
     const dungLuongMoi = dungluong.find(dl => dl.name === name)
     if (!dungLuongMoi) return
 
-    // Kiểm tra màu sắc hiện tại có trong dung lượng mới không
     const mauHienTai = dungLuongMoi.mausac.find(mau => mau.name === mausac1)
 
     if (mauHienTai) {
-      // Nếu có, giữ nguyên màu nhưng cập nhật ID
       setidmausac(mauHienTai._id)
+      setpricemausac(mauHienTai.price)
     } else if (dungLuongMoi.mausac.length > 0) {
-      // Nếu không, chọn màu đầu tiên của dung lượng mới
       setmausac1(dungLuongMoi.mausac[0].name)
       setidmausac(dungLuongMoi.mausac[0]._id)
+      setpricemausac(dungLuongMoi.mausac[0].price)
     }
   }
+
 
   const fetchdungluong = async () => {
     try {
@@ -185,7 +186,7 @@ const ChiTietLayout = () => {
             </div>
             <div className='chitietprice'>
               <span className='current-price'>
-                {product.price.toLocaleString()}
+                {pricemausac.toLocaleString()}đ
               </span>
               <span className='old-price'>50.000.000đ</span>{' '}
             </div>
@@ -231,6 +232,7 @@ const ChiTietLayout = () => {
                               onClick={() => {
                                 setmausac1(mau.name)
                                 setidmausac(mau._id)
+                                setpricemausac(mau.price)
                               }}
                             >
                               <div

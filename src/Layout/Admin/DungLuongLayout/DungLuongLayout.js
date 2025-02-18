@@ -2,16 +2,19 @@
 import { ModalBig } from '../../../components/ModalBig'
 import { useState, useEffect } from 'react'
 import { FaEdit, FaPlus } from 'react-icons/fa'
-import { AddSanPham } from './AddSanPham'
-import { XoaSanPham } from './XoaSanPham'
-import { UpdateSanPham } from './UpdateSanPham'
-import { FaTrashCan } from 'react-icons/fa6'
 
-function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
+import { FaDroplet, FaTrashCan } from 'react-icons/fa6'
+import { MauSacLayout } from '../MauSacLayout'
+import { AddDungLuong } from './AddDungLuong'
+import { UpdateDungLuong } from './UpdateDungLuong'
+import { XoaDungLuong } from './XoaDungLuong'
+function DungLuongLayout ({ isOpen, onClose, idtheloai }) {
   const [data, setdata] = useState([])
   const [isOpenThem, setIsOpenThem] = useState(false)
   const [isOpenEdit, setIsOpenEdit] = useState(false)
   const [isOpenXoa, setIsOpenXoa] = useState(false)
+  const [isOpenMauSac, setIsOpenMauSac] = useState(false)
+
   const [loading, setloading] = useState(true)
   const [selectedIds, setSelectedIds] = useState([])
   const [selectAll, setSelectAll] = useState(false)
@@ -21,7 +24,7 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
       setloading(true)
       try {
         const response = await fetch(
-          `http://localhost:3005/getsanpham/${idtheloai}`
+          `http://localhost:3005/dungluong/${idtheloai}`
         )
         if (response.ok) {
           const data = await response.json()
@@ -80,15 +83,15 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
             onClick={() => setIsOpenThem(true)}
           >
             <FaPlus className='icons' />
-            Thêm sản phẩm
+            Thêm dung lượng
           </button>
           <button
             className='btnthemtheloai'
             onClick={() => {
               if (selectedIds.length === 0) {
-                alert('Chọn một sản phẩm để cập nhật')
+                alert('Chọn một dung lượng để cập nhật')
               } else if (selectedIds.length > 1) {
-                alert('Chỉ được chọn một sản phẩm để cập nhật')
+                alert('Chỉ được chọn một dung lượng để cập nhật')
               } else {
                 setIsOpenEdit(true)
               }
@@ -103,11 +106,27 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
             onClick={() =>
               selectedIds.length > 0
                 ? setIsOpenXoa(true)
-                : alert('Chọn sản phẩm để xóa')
+                : alert('Chọn dung lượng để xóa')
             }
           >
             <FaTrashCan className='icons' />
-            Xóa sản phẩm
+            Xóa dung lượng
+          </button>
+
+          <button
+            className='btnthemtheloai'
+            onClick={() => {
+              if (selectedIds.length === 0) {
+                alert('Chọn một dung lượng để cập nhật')
+              } else if (selectedIds.length > 1) {
+                alert('Chỉ được chọn một dung lượng để cập nhật')
+              } else {
+                setIsOpenMauSac(true)
+              }
+            }}
+          >
+            <FaDroplet className='icons' />
+            Màu sắc
           </button>
         </div>
 
@@ -123,9 +142,7 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
               </th>
               <th>STT</th>
               <th>ID</th>
-              <th>Ảnh</th>
-              <th>Tên sản phẩm</th>
-              <th>Giá</th>
+              <th>Tên dung lượng</th>
             </tr>
           </thead>
           <tbody>
@@ -145,11 +162,7 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
                   </td>
                   <td>{index + 1}</td>
                   <td>{item._id}</td>
-                  <td>
-                    <img src={`${item.image}`} alt='' />
-                  </td>
                   <td>{item.name}</td>
-                  <td>{item.price}</td>
                 </tr>
               ))
             ) : (
@@ -160,23 +173,28 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
           </tbody>
         </table>
       </div>
-      <AddSanPham
+      <MauSacLayout
+        isOpen={isOpenMauSac}
+        onClose={() => setIsOpenMauSac(false)}
+        iddungluong={selectedIds}
+      />
+      <AddDungLuong
         isOpen={isOpenThem}
         onClose={() => setIsOpenThem(false)}
         idtheloai={idtheloai}
-        fetchData={fetchdata}
+        fetchdata={fetchdata}
       />
-      <UpdateSanPham
+      <UpdateDungLuong
         isOpen={isOpenEdit}
         onClose={() => setIsOpenEdit(false)}
-        idsanpham={selectedIds}
-        fetchData={fetchdata}
+        iddungluong={selectedIds}
+        fetchdata={fetchdata}
         setSelectedIds={setSelectedIds}
       />
-      <XoaSanPham
+      <XoaDungLuong
         isOpen={isOpenXoa}
         onClose={() => setIsOpenXoa(false)}
-        idsanpham={selectedIds}
+        iddungluong={selectedIds}
         fetchdata={fetchdata}
         setSelectedIds={setSelectedIds}
       />
@@ -184,4 +202,4 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
   )
 }
 
-export default SanPhamLayout
+export default DungLuongLayout

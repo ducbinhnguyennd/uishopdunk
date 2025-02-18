@@ -1,19 +1,20 @@
 import { Modal } from '../../../../components/Modal'
-import './XoaTheLoai.scss'
 import { MdDeleteForever } from 'react-icons/md'
 import { MdCancelPresentation } from 'react-icons/md'
 
-function XoaTheLoai ({ isOpen, onClose, idtheloai, fetchdata, setSelectedIds }) {
-  const handlexoatheloai = async () => {
+function XoaMauSac ({ isOpen, onClose, idmausac, fetchdata, setSelectedIds }) {
+  const handleXoaMauSac = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3005/deletehangloatloaisp`,
+        `http://localhost:3005/deletemausachangloat`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ ids: idtheloai })
+          body: JSON.stringify({
+            ids: idmausac
+          })
         }
       )
       if (response.ok) {
@@ -23,15 +24,15 @@ function XoaTheLoai ({ isOpen, onClose, idtheloai, fetchdata, setSelectedIds }) 
         alert('Xóa thành công!')
       }
     } catch (error) {
-      console.error('lỗi xóa thể loại:', error)
+      console.error('lỗi xóa màu sắc:', error)
     }
   }
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div>
-        <p>Bạn có chắc muốn xóa thể loại này?</p>
+        <p>Bạn có chắc muốn xóa màu sắc này?</p>
         <div className='divbtnxtl'>
-          <button onClick={handlexoatheloai} className='btndelete'>
+          <button onClick={handleXoaMauSac} className='btndelete'>
             <MdDeleteForever />
             Xóa
           </button>
@@ -45,4 +46,4 @@ function XoaTheLoai ({ isOpen, onClose, idtheloai, fetchdata, setSelectedIds }) 
   )
 }
 
-export default XoaTheLoai
+export default XoaMauSac

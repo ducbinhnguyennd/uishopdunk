@@ -1,37 +1,32 @@
 import { Modal } from '../../../../components/Modal'
 import { useState } from 'react'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
-import './AddSanPham.scss'
 
-function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
+function AddMauSac ({ isOpen, onClose, iddungluong, fetchData }) {
   const [name, setname] = useState('')
   const [price, setprice] = useState('')
-  const [image, setimage] = useState('')
-  const [file, setFile] = useState(null)
-  const [mota, setmota] = useState('')
+  const [images, setImages] = useState([]) // Danh sách ảnh hiển thị
+  const [files, setFiles] = useState([]) // Danh sách file tải lên
 
   const handelclose = () => {
     setname('')
-    setmota('')
     setprice('')
-    setimage('')
-    setFile(null)
+    setImages([])
+    setFiles([])
     onClose()
   }
 
-  const handelAddsanpham = async () => {
+  const handelAddMauSac = async () => {
     try {
       const formData = new FormData()
       formData.append('name', name)
-      formData.append('content', mota)
       formData.append('price', price)
-      if (file) {
+
+      files.forEach(file => {
         formData.append('image', file)
-      }
+      })
 
       const response = await fetch(
-        `http://localhost:3005/postsanpham/${idtheloai}`,
+        `http://localhost:3005/postmausac/${iddungluong}`,
         {
           method: 'POST',
           body: formData
@@ -53,46 +48,53 @@ function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
         <h2>Thêm sản phẩm</h2>
         <div className='div_input_group'>
           <div className='input-group1'>
-            {image !== '' ? <img src={image} alt='' /> : <h3>Ảnh sản phẩm</h3>}
+            {images.length > 0 ? (
+              images.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt=''
+                  style={{ width: 100, height: 100, marginRight: 10 }}
+                />
+              ))
+            ) : (
+              <h3>Ảnh</h3>
+            )}
           </div>
           <div className='input-group'>
-            <label> Ảnh</label>
+            <label>Ảnh</label>
             <input
               type='file'
+              multiple
               onChange={e => {
-                const file = e.target.files[0]
-                if (file) {
-                  setFile(file)
-                  setimage(URL.createObjectURL(file))
-                }
+                const selectedFiles = Array.from(e.target.files)
+
+                setFiles(prevFiles => [...prevFiles, ...selectedFiles]) 
+                setImages(prevImages => [
+                  ...prevImages,
+                  ...selectedFiles.map(file => URL.createObjectURL(file))
+                ]) 
               }}
             />
-            <label>Tên sản phẩm:</label>
+            <label>Mã màu sắc:</label>
             <input
               type='text'
               value={name}
               onChange={e => setname(e.target.value)}
-              placeholder='Nhập tên sản phẩm'
+              placeholder='Nhập mã màu sắc'
             />
-            <label>Giá sản phẩm:</label>
+            <label>Giá:</label>
             <input
-              type='text'
+              type='number'
               value={price}
               onChange={e => setprice(e.target.value)}
               placeholder='Nhập đơn giá'
             />
           </div>
         </div>
-        <label>Mô tả sản phẩm:</label>
-        <ReactQuill
-          value={mota}
-          onChange={setmota}
-          placeholder='Nhập mô tả sản phẩm'
-          theme='snow'
-        />
 
         <div className='button-group'>
-          <button className='btnaddtl' onClick={handelAddsanpham}>
+          <button className='btnaddtl' onClick={handelAddMauSac}>
             Thêm
           </button>
         </div>
@@ -101,4 +103,4 @@ function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
   )
 }
 
-export default AddSanPham
+export default AddMauSac

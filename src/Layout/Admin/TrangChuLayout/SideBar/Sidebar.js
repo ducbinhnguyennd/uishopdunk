@@ -17,7 +17,7 @@ function Sidebar ({ activeTab }) {
     { name: 'Trang chủ', icon: faHouse },
     { name: 'Sản Phẩm', icon: faMobile },
     { name: 'Blog', icon: faBlog },
-    { name: 'Khuyến Mãi', icon: faPercent },
+    { name: 'Mã Giảm Giá', icon: faPercent },
     { name: 'Doanh Thu', icon: faChartLine }
   ]
 

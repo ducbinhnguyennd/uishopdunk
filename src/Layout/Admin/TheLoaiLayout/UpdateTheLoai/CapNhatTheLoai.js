@@ -44,6 +44,20 @@ export function CapNhatTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
     }
   }, [idtheloai, isOpen])
 
+  const handelClose = () => {
+    setName('')
+    setManhinh('')
+    setChip('')
+    setRam('')
+    setdungluong('')
+    setCamera('')
+    setpinsac('')
+    sethang('')
+    setcongsac('')
+    sethongtin('')
+    onClose()
+  }
+
   const handleUpdate = async () => {
     try {
       const response = await fetch(
@@ -71,7 +85,7 @@ export function CapNhatTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
       if (response.ok) {
         alert('Cập nhật thể loại thành công!')
         fetchdata()
-        onClose()
+        handelClose()
       } else {
         alert('Cập nhật thất bại!')
       }
@@ -157,7 +171,7 @@ export function CapNhatTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
         />
         <div className='modal-actions'>
           <button onClick={handleUpdate}>Cập nhật</button>
-          <button onClick={onClose}>Hủy</button>
+          <button onClick={handelClose}>Hủy</button>
         </div>
       </div>
     </div>
