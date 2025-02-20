@@ -7,6 +7,11 @@
   justify-items: center;
 }
 
+.content {
+  margin-top: 80px;
+
+}
+
 .namesp {
   font-size: 24px;
   font-weight: 700;
@@ -22,7 +27,7 @@
   border-radius: 10px;
   align-items: center;
   margin: 0 42%;
-  
+
 }
 
 .see-all {
@@ -43,24 +48,28 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   position: relative;
   text-align: center;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .name-sp {
   font-size: 15px;
   font-weight: 700;
   color: #000000;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* Giới hạn tối đa 2 dòng */
+  -webkit-line-clamp: 2;
+  /* Giới hạn tối đa 2 dòng */
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
 .divtungsp:hover {
   transform: translateY(-12px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+
 .divtungsp img {
   width: 100%;
   height: 300px;
@@ -72,7 +81,8 @@
   margin: 5px 0 0 5px;
   width: 150px;
   height: 50px;
-  object-fit: contain; /* Đảm bảo ảnh được thu nhỏ cân đối */
+  object-fit: contain;
+  /* Đảm bảo ảnh được thu nhỏ cân đối */
 }
 
 
@@ -116,13 +126,16 @@
 .original-price {
   color: #000000;
 }
-.pricetong{
+
+.pricetong {
   display: flex;
 }
-.price{
+
+.price {
   font-weight: 500;
   color: red;
 }
+
 .original-price span {
   color: #ccc;
   text-decoration: line-through;
@@ -130,7 +143,7 @@
 
 @media (max-width: 768px) {
   .divsp {
-    grid-template-columns: repeat(2, 1fr); 
+    grid-template-columns: repeat(2, 1fr);
     padding: 10px 2%;
   }
 
@@ -141,17 +154,19 @@
     flex-direction: column;
     margin-bottom: 0px;
   }
+
   .divtungsp:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
+
   .divtungsp img {
     height: 250px;
   }
 
   .divpropsp {
-    flex-direction: column; 
-    align-items: flex-start; 
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .divpropsp p,

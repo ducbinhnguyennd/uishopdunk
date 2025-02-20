@@ -9,6 +9,11 @@
   box-sizing: border-box;
   gap: 20px;
 
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 10px 15px;
@@ -96,4 +101,11 @@
   border-radius: 50%;
   border: 1px solid #ccc;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.div_timkiem_don {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
 }

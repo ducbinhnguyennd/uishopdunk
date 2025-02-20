@@ -117,9 +117,9 @@ function DungLuongLayout ({ isOpen, onClose, idtheloai }) {
             className='btnthemtheloai'
             onClick={() => {
               if (selectedIds.length === 0) {
-                alert('Chọn một dung lượng để cập nhật')
+                alert('Chọn một dung lượng để xem màu sắc')
               } else if (selectedIds.length > 1) {
-                alert('Chỉ được chọn một dung lượng để cập nhật')
+                alert('Chỉ được chọn một dung lượng để xem màu sắc')
               } else {
                 setIsOpenMauSac(true)
               }

@@ -21,14 +21,13 @@ const ChiTietLayout = () => {
   const [dungluong1, setdungluong1] = useState([])
   const [mausac1, setmausac1] = useState([])
   const [annhmausac, setanhmausac] = useState([])
-  const [pricemausac,setpricemausac] = useState(0)
+  const [pricemausac, setpricemausac] = useState(0)
   const [idmausac, setidmausac] = useState('')
   const [idsanpham, setidsanpham] = useState('')
   const [iddungluong, setiddungluong] = useState('')
 
   const [imgsanpham, setimgsanpham] = useState('')
-
-
+  const [namesanpham, setnamesanpham] = useState('')
 
   const settings = {
     dots: true, // Hiển thị chấm điều hướng
@@ -66,7 +65,7 @@ const ChiTietLayout = () => {
     }
   }, [dungluong])
 
-  const handleChangeDungLuong = (id,name) => {
+  const handleChangeDungLuong = (id, name) => {
     setiddungluong(id)
     setdungluong1(name)
 
@@ -84,7 +83,6 @@ const ChiTietLayout = () => {
       setpricemausac(dungLuongMoi.mausac[0].price)
     }
   }
-
 
   const fetchdungluong = async () => {
     try {
@@ -110,6 +108,7 @@ const ChiTietLayout = () => {
       if (response.ok) {
         setProduct(data)
         setidsanpham(data._id)
+        setnamesanpham(data.name)
         setimgsanpham(data.image)
       } else {
         console.error('Không tìm thấy sản phẩm')
@@ -153,40 +152,39 @@ const ChiTietLayout = () => {
   }
 
   const handleBuyNow = () => {
-  if (!dungluong1 || !mausac1) {
-    alert('Vui lòng chọn dung lượng và màu sắc!')
-    return
+    if (!dungluong1 || !mausac1) {
+      alert('Vui lòng chọn dung lượng và màu sắc!')
+      return
+    }
+
+    const newItem = {
+      idsanpham,
+      namesanpham,
+      imgsanpham,
+      iddungluong,
+      dungluong: dungluong1,
+      mausac: mausac1,
+      pricemausac
+    }
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || []
+
+    const isExist = cart.some(
+      item =>
+        item.idmay === idsanpham &&
+        item.dungluong === dungluong1 &&
+        item.mausac === mausac1
+    )
+
+    if (!isExist) {
+      cart.push(newItem)
+      localStorage.setItem('cart', JSON.stringify(cart))
+      alert('Sản phẩm đã được thêm vào giỏ hàng!')
+    } else {
+      alert('Sản phẩm này đã có trong giỏ hàng!')
+    }
+    window.dispatchEvent(new Event('cartUpdated'))
   }
-
-  const newItem = {
-    idsanpham,
-    imgsanpham,
-    iddungluong,
-    dungluong: dungluong1,
-    mausac: mausac1,
-    pricemausac
-  }
-
-  let cart = JSON.parse(localStorage.getItem('cart')) || []
-
-  const isExist = cart.some(
-    item =>
-      item.idmay === idsanpham &&
-      item.dungluong === dungluong1 &&
-      item.mausac === mausac1
-  )
-
-  if (!isExist) {
-    cart.push(newItem)
-    localStorage.setItem('cart', JSON.stringify(cart))
-    alert('Sản phẩm đã được thêm vào giỏ hàng!')
-  } else {
-    alert('Sản phẩm này đã có trong giỏ hàng!')
-  }
-  window.dispatchEvent(new Event('cartUpdated'))
-
-}
-
 
   return (
     <div className='container-chitiet'>
@@ -252,7 +250,9 @@ const ChiTietLayout = () => {
                             ? 'dungluong_item dungluong_item_active'
                             : 'dungluong_item'
                         }
-                        onClick={() => handleChangeDungLuong(item._id,item.name)}
+                        onClick={() =>
+                          handleChangeDungLuong(item._id, item.name)
+                        }
                       >
                         <span>{item.name}</span>
                       </div>
@@ -411,7 +411,9 @@ const ChiTietLayout = () => {
               </p>
             </div>
           </div>
-          <div className='divbtn_muagay' onClick={handleBuyNow}>MUA NGAY</div>
+          <div className='divbtn_muagay' onClick={handleBuyNow}>
+            MUA NGAY
+          </div>
           <div className='short-des'>
             <p className='pchitiet lh-2'>
               <span style={{ color: '#000000' }}>
