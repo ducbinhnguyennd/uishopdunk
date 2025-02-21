@@ -84,6 +84,10 @@ function TrangChuLayout () {
               </div>
             </div>
           ))}
+         <div className="trangchu_banner">
+  <img src="/2.jpeg" alt="" />
+
+      </div>
           <ListBlog />
         </div>
       )}
