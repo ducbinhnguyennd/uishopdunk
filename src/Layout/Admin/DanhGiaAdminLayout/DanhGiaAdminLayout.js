@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react'
 import { FaEdit, FaPlus } from 'react-icons/fa'
 
 import { FaTrashCan } from 'react-icons/fa6'
-
+import { AddDanhGia } from './AddDanhGia'
+import { DuyetDanhGia } from './DuyetDanhGia'
+import { XoaDanhGia } from './XoaDanhGia'
 
 function DanhGiaAdminLayout () {
   const [data, setData] = useState([])
   const [selectedIds, setSelectedIds] = useState([])
   const [selectAll, setSelectAll] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [isOpenXoaTL, setisOpenXoaTL] = useState(false)
-
+  const [isOpenDuyetDanhGia, setisOpenDuyetDanhGia] = useState(false)
+  const [isOpenXoaDG, setisOpenXoaDG] = useState(false)
 
   const fetchdata = async () => {
     try {
@@ -60,7 +62,7 @@ function DanhGiaAdminLayout () {
           className='btnthemtheloai'
           onClick={() =>
             selectedIds.length > 0
-              ? setisOpenXoaTL(true)
+              ? setisOpenDuyetDanhGia(true)
               : alert('Chọn đánh giá để duyệt')
           }
         >
@@ -71,7 +73,7 @@ function DanhGiaAdminLayout () {
           className='btnthemtheloai'
           onClick={() =>
             selectedIds.length > 0
-              ? setisOpenXoaTL(true)
+              ? setisOpenXoaDG(true)
               : alert('Chọn đánh giá để xóa')
           }
         >
@@ -94,6 +96,7 @@ function DanhGiaAdminLayout () {
             <th>Tên khách hàng</th>
             <th>Nội dung</th>
             <th>Sao</th>
+            <th>Trạng thái</th>
           </tr>
         </thead>
         <tbody>
@@ -119,10 +122,30 @@ function DanhGiaAdminLayout () {
                   </span>
                 ))}
               </td>
+              <td>{item.isRead ? 'Đã duyệt' : 'Chưa duyệt'}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      <AddDanhGia
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        fetchdata={fetchdata}
+      />
+      <DuyetDanhGia
+        isOpen={isOpenDuyetDanhGia}
+        onClose={() => setisOpenDuyetDanhGia(false)}
+        iddanhgia={selectedIds}
+        fetchdata={fetchdata}
+        setSelectedIds={setSelectedIds}
+      />
+      <XoaDanhGia
+        isOpen={isOpenXoaDG}
+        onClose={() => setisOpenXoaDG(false)}
+        iddanhgia={selectedIds}
+        fetchdata={fetchdata}
+        setSelectedIds={setSelectedIds}
+      />
     </div>
   )
 }

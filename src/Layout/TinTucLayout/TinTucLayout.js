@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./TinTucLayout.scss"; // Import file SCSS
+import "./TinTucLayout.scss";
 
 const TinTucLayout = () => {
   const [blogs, setBlogs] = useState([]);

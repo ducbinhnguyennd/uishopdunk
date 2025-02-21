@@ -33,7 +33,7 @@ const ChiTietLayout = () => {
   const settings = {
     dots: true, // Hiển thị chấm điều hướng
     infinite: true, // Chạy lặp vô tận
-    speed: 100000, // Tốc độ chuyển slide
+    speed: 500, // Tốc độ chuyển slide
     slidesToShow: 5, // Hiển thị 3 ảnh trên cùng 1 hàng
     slidesToScroll: 1, // Cuộn từng ảnh một
     autoplay: true, // Tự động chạy
