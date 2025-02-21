@@ -14,13 +14,14 @@ import BaoMat from '../Layout/DeafaultLayout/HuongDan/BaoMat/BaoMat'
 import GioiThieu from '../Layout/DeafaultLayout/GioiThieu/GioiThieu'
 import TimKiemLayout from '../Layout/TimKiemLayout/TiemKiemLayout'
 import { AdminLayout } from '../Layout/Admin/TrangChuLayout'
+import { DangNhapLayout } from '../Layout/Admin/DangNhapLayout'
 
 const publicRoutes = [
   { path: '/', component: TrangChuLayout },
   { path: '/cart', component: GioHangLayout },
   { path: '/thanhcong', component: PaySuccess },
   { path: '/san-pham/:slug', component: TheLoaiLayout },
-  { path: '/chitietsanpham/:tieude', component: ChiTietLayout },
+  { path: '/chitietsanpham/:loaisp/:tieude', component: ChiTietLayout },
   { path: '/chitietblog/:tieude', component: ChiTietBlog },
   { path: '/lien-he', component: LienHe },
   { path: '/chinh-sach-van-chuyen', component: ChinhSachVanChuyen },
@@ -31,6 +32,7 @@ const publicRoutes = [
   { path: '/bao-mat', component: BaoMat },
   { path: '/gioi-thieu-do-tho-y-yen', component: GioiThieu },
   { path: '/admin', component: AdminLayout, layout: null },
+  { path: '/login-admin', component: DangNhapLayout, layout: null },
   { path: '/search/:keyword', component: TimKiemLayout }
 ]
 const privateRoutes = []

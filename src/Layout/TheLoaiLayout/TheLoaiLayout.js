@@ -40,7 +40,7 @@ const TheLoaiLayout = () => {
       try {
         setLoading(true)
         const response = await fetch(
-          `https://demovemaybay.shop/san-pham/${slug}`
+          `http://localhost:3005/san-pham/${slug}`
         )
         const data = await response.json()
         setProductDetails(data)
@@ -93,7 +93,7 @@ const TheLoaiLayout = () => {
             <Loading />
           ) : (
             productDetails.sanpham.map((sanpham) => (
-              <ProductCard key={sanpham._id} sanpham={sanpham} setLoading={setLoading} />
+              <ProductCard key={sanpham._id} sanpham={sanpham} setLoading={setLoading} nametheloai={productDetails.nametheloai}/>
             ))
           )}
         </div>
