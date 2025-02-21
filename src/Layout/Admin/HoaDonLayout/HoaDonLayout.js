@@ -74,9 +74,9 @@ function HoaDonLayout () {
           className='btnthemtheloai'
           onClick={() => {
             if (selectedIds.length === 0) {
-              alert('Chọn một hóa đơn để xem sản phẩm')
+              alert('Chọn một hóa đơn để xem chi tiết')
             } else if (selectedIds.length > 1) {
-              alert('Chỉ được chọn một hóa đơn để xem sản phẩm')
+              alert('Chỉ được chọn một hóa đơn để xem chi tiết')
             } else {
               setIsOpen(true)
             }

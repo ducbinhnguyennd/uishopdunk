@@ -41,22 +41,11 @@ const Header = () => {
       handleSearch()
     }
   }
-  const handelCart = e => {
-    e.preventDefault()
-    if (itemCount === 0) {
-      toast.warning('Chưa có đơn hàng nào trong giỏ hàng!', {
-        position: 'top-right',
-        autoClose: 3000
-      })
-      return
-    }
-    navigate('/cart')
-  }
 
   return (
     <div className='header-container'>
       <ToastContainer />
-      <a onClick={e => handelCart(e)}>
+      <a href='/cart'>
         <div className='cart-container'>
           <FontAwesomeIcon icon={faBagShopping} className='cart-icon' />
           {<span className='cart-badge'>{itemCount}</span>}

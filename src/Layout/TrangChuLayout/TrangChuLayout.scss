@@ -177,4 +177,31 @@
   .btnthemgiohang {
     display: none;
   }
+
+ 
+
+  .div_sanpham {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title-product {
+    width: 200px;
+
+  }
+
+  .news-items {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .news-item {
+    width: 100% !important;
+  }
+
+  .news-list {
+    margin: 5px !important;
+  }
 }

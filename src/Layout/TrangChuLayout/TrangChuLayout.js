@@ -57,7 +57,7 @@ function TrangChuLayout () {
           )}
           <Carousel />
           {data.map(item => (
-            <div key={item.name}>
+            <div key={item.name} className='div_sanpham'>
               <div className='namesp'>{item.name}</div>
 
               <div className='divsp'>

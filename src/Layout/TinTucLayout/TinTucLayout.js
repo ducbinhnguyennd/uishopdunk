@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import './ListBlog.scss'
-import { MdKeyboardArrowRight } from 'react-icons/md'
-import { Link } from 'react-router-dom'
 
-const ListBlog = () => {
+
+const TinTucLayout = () => {
   const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
@@ -14,11 +12,11 @@ const ListBlog = () => {
   }, [])
 
   return (
-    <div className='listblog_container'>
+    <>
       <div className='news-list'>
         <div className='news-header'>Tin tức</div>
         <div className='news-items'>
-          {blogs.slice(0, 3).map(blog => (
+          {blogs.map(blog => (
             <div key={blog._id} className='news-item'>
               <div className='news-thumbnail'>
                 <img src={blog.img_blog} alt={blog.tieude_blog} />
@@ -38,21 +36,9 @@ const ListBlog = () => {
           ))}
         </div>
       </div>
-      <div className='title-product'>
-        <Link to={`/tintuc`} className='see-all'>
-          Xem tất cả{' '}
-          <MdKeyboardArrowRight
-            style={{
-              color: '#0066CC',
-              fontSize: '20px',
-              display: 'inline',
-              marginLeft: '5px'
-            }}
-          />
-        </Link>
-      </div>
-    </div>
+
+    </>
   )
 }
 
-export default ListBlog
+export default TinTucLayout

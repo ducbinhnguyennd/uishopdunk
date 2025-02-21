@@ -159,7 +159,7 @@ function MauSacLayout ({ isOpen, onClose, iddungluong }) {
                       ></div>
                     </div>
                   </td>
-                  <td>{item.price}</td>
+                  <td>{item.price.toLocaleString()} VNĐ</td>
 
                 </tr>
               ))

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,useNavigate } from 'react-router-dom'
 import './ChiTietLayout.scss'
 
 import ListBlog from '../../components/ListBlog/ListBlog'
@@ -14,6 +14,7 @@ import 'slick-carousel/slick/slick-theme.css'
 
 const ChiTietLayout = () => {
   const { tieude, loaisp } = useParams()
+  const navigate = useNavigate()
   const [product, setProduct] = useState(null)
 
   const [isLoading, setIsLoading] = useState(true)
@@ -32,7 +33,7 @@ const ChiTietLayout = () => {
   const settings = {
     dots: true, // Hiển thị chấm điều hướng
     infinite: true, // Chạy lặp vô tận
-    speed: 500, // Tốc độ chuyển slide
+    speed: 100000, // Tốc độ chuyển slide
     slidesToShow: 5, // Hiển thị 3 ảnh trên cùng 1 hàng
     slidesToScroll: 1, // Cuộn từng ảnh một
     autoplay: true, // Tự động chạy
@@ -152,8 +153,30 @@ const ChiTietLayout = () => {
   }
 
   const handleBuyNow = () => {
-    if (!dungluong1 || !mausac1) {
-      alert('Vui lòng chọn dung lượng và màu sắc!')
+    if (!dungluong1) {
+      alert('Vui lòng chọn dung lượng!')
+      return
+    }
+
+    if (!mausac1) {
+      alert('Vui lòng chọn màu sắc!')
+      return
+    }
+
+    // Lấy danh sách màu sắc của dung lượng đã chọn
+    const dungLuongHienTai = dungluong.find(dl => dl.name === dungluong1)
+    const validColors = dungLuongHienTai
+      ? dungLuongHienTai.mausac.map(mau => mau.name)
+      : []
+
+    // Kiểm tra xem màu sắc đã chọn có hợp lệ với dung lượng hay không
+    if (!validColors.includes(mausac1)) {
+      alert('Màu sắc không hợp lệ với dung lượng đã chọn!')
+      return
+    }
+
+    if (!pricemausac) {
+      alert('Vui lòng chọn giá phù hợp với màu sắc!')
       return
     }
 
@@ -171,7 +194,7 @@ const ChiTietLayout = () => {
 
     const isExist = cart.some(
       item =>
-        item.idmay === idsanpham &&
+        item.idsanpham === idsanpham &&
         item.dungluong === dungluong1 &&
         item.mausac === mausac1
     )
@@ -179,7 +202,7 @@ const ChiTietLayout = () => {
     if (!isExist) {
       cart.push(newItem)
       localStorage.setItem('cart', JSON.stringify(cart))
-      alert('Sản phẩm đã được thêm vào giỏ hàng!')
+      navigate('/cart')
     } else {
       alert('Sản phẩm này đã có trong giỏ hàng!')
     }
@@ -207,7 +230,7 @@ const ChiTietLayout = () => {
             <Slider {...settings}>
               {annhmausac.map((anh, index) => (
                 <div className='banner_item' key={index}>
-                  <img src={`${anh}`} alt='Banner 1' width={24} height={100} />
+                  <img src={`${anh}`} alt='Banner 1' className='anhchay-img' />
                 </div>
               ))}
             </Slider>
@@ -231,7 +254,7 @@ const ChiTietLayout = () => {
             </div>
             <div className='chitietprice'>
               <span className='current-price'>
-                {pricemausac.toLocaleString()}đ
+                {pricemausac ? pricemausac.toLocaleString() : 0}đ
               </span>
               <span className='old-price'>50.000.000đ</span>{' '}
             </div>

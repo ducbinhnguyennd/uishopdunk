@@ -15,6 +15,7 @@ import GioiThieu from '../Layout/DeafaultLayout/GioiThieu/GioiThieu'
 import TimKiemLayout from '../Layout/TimKiemLayout/TiemKiemLayout'
 import { AdminLayout } from '../Layout/Admin/TrangChuLayout'
 import { DangNhapLayout } from '../Layout/Admin/DangNhapLayout'
+import { TinTucLayout } from '../Layout/TinTucLayout'
 
 const publicRoutes = [
   { path: '/', component: TrangChuLayout },
@@ -33,7 +34,8 @@ const publicRoutes = [
   { path: '/gioi-thieu-do-tho-y-yen', component: GioiThieu },
   { path: '/admin', component: AdminLayout, layout: null },
   { path: '/login-admin', component: DangNhapLayout, layout: null },
-  { path: '/search/:keyword', component: TimKiemLayout }
+  { path: '/search/:keyword', component: TimKiemLayout },
+  { path: '/tintuc', component: TinTucLayout }
 ]
 const privateRoutes = []
 export { publicRoutes, privateRoutes }

@@ -15,7 +15,6 @@ function Sidebar ({ activeTab }) {
   const [istoggle, setIstoggle] = useState(true)
 
   const menus = [
-    { name: 'Trang chủ', icon: faHouse },
     { name: 'Sản Phẩm', icon: faMobile },
     { name: 'Blog', icon: faBlog },
     { name: 'Mã Giảm Giá', icon: faPercent },

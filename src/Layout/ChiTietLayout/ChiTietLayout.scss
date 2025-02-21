@@ -402,18 +402,35 @@ hr {
     color: black !important;
   }
 }
+.anhchay-img{
+  width: 24px;
+  height: 100px;
+}
 
 
 @media (max-width: 768px) {
 
   .container-chitiet {
     font-family: Arial, sans-serif;
-    max-width: 100%;
+    max-width: unset;
     margin: auto;
   }
 
   .product-detail {
     flex-direction: column;
 
+  }
+  .main{
+    flex-direction: column;
+  }
+  .anhchay{
+    width: 100% !important;
+  }
+  .anhchay-img{
+    width: 100px !important;
+    height: 100px;
+  }
+  .slick-slide{
+    width: unset !important;
   }
 }
