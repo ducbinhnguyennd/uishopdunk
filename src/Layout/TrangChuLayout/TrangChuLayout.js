@@ -68,7 +68,7 @@ function TrangChuLayout () {
 
               <div className='title-product'>
                 <Link
-                  to={/san-pham/${convertToSlug(item.name)}}
+                  to={`/san-pham/${convertToSlug(item.name)}`}
                   className='see-all'
                 >
                   Xem tất cả{' '}
@@ -84,6 +84,10 @@ function TrangChuLayout () {
               </div>
             </div>
           ))}
+         <div className="trangchu_banner">
+  <img src="/2.jpeg" alt="" />
+
+      </div>
           <ListBlog />
         </div>
       )}
