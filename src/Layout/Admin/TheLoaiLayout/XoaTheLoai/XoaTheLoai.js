@@ -3,20 +3,22 @@ import './XoaTheLoai.scss'
 import { MdDeleteForever } from 'react-icons/md'
 import { MdCancelPresentation } from 'react-icons/md'
 
-function XoaTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
+function XoaTheLoai ({ isOpen, onClose, idtheloai, fetchdata, setSelectedIds }) {
   const handlexoatheloai = async () => {
     try {
       const response = await fetch(
-        `https://demovemaybay.shop/deletetheloai/${idtheloai}`,
+        `http://localhost:3005/deletehangloatloaisp`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          body: JSON.stringify({ ids: idtheloai })
         }
       )
       if (response.ok) {
         onClose()
+        setSelectedIds([])
         fetchdata()
         alert('Xóa thành công!')
       }

@@ -1,14 +1,25 @@
-
 import './AdminLayout.scss'
 import { SideBar } from './SideBar'
-function TrangChuLayout ({children}) {
-  
+import { useSearchParams } from 'react-router-dom'
+import { TheLoaiLayoutAdmin } from '../TheLoaiLayout'
+import { BlogLayout } from '../BlogLayout'
+import { MaGiamGiaLayout } from '../MaGiamGiaLayout'
+import { HoaDonLayout } from '../HoaDonLayout'
+import { DoanhThuLayout } from '../DoanhThuLayout'
+function TrangChuLayout () {
+  const [searchParams] = useSearchParams()
+  const tabFromUrl = searchParams.get('tab') || 'Trang chủ'
+
   return (
     <div className='trangchu_container'>
-      <SideBar/>
-      <div>
-        {children}
-        </div>
+      <SideBar activeTab={tabFromUrl} />
+      <div className='admin_body'>
+        {tabFromUrl === 'Doanh Thu' && <DoanhThuLayout />}
+        {tabFromUrl === 'Sản Phẩm' && <TheLoaiLayoutAdmin />}
+        {tabFromUrl === 'Blog' && <BlogLayout />}
+        {tabFromUrl === 'Hóa đơn' && <HoaDonLayout />}
+        {tabFromUrl === 'Mã Giảm Giá' && <MaGiamGiaLayout />}
+      </div>
     </div>
   )
 }

@@ -1,1 +1,1 @@
-export{default as TheLoaiLayout} from './TheLoaiLayout'
+export{default as TheLoaiLayoutAdmin} from './TheLoaiLayout'

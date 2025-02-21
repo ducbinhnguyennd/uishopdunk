@@ -7,6 +7,13 @@ function AddBlog ({ isOpen, onClose, fetchdata }) {
   const [tieude_blog, settieude_blog] = useState('')
   const [file, setFile] = useState(null)
   const [noidung, setnoidung] = useState('')
+  const handelclose = () => {
+  settieude_blog('')
+  setnoidung('')
+  setFile(null)
+  onClose()
+}
+
   const handelAddBlog = async () => {
     try {
       const formData = new FormData() // Tạo FormData
@@ -17,12 +24,12 @@ function AddBlog ({ isOpen, onClose, fetchdata }) {
         formData.append('image', file)
       }
 
-      const response = await fetch('https://demovemaybay.shop/postblog', {
+      const response = await fetch('http://localhost:3005/postblog', {
         method: 'POST',
         body: formData
       })
       if (response.ok) {
-        onClose()
+        handelclose()
         fetchdata()
       }
     } catch (error) {
@@ -30,7 +37,7 @@ function AddBlog ({ isOpen, onClose, fetchdata }) {
     }
   }
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={handelclose}>
       <div className='addtheloai'>
         <h2>Thêm Blog</h2>
         <div className='input-group'>

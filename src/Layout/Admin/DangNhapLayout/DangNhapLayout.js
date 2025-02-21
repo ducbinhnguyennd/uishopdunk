@@ -51,7 +51,7 @@ function DagNhapLayout () {
           })
         } else {
           localStorage.setItem('data', data)
-          window.location.href = '/admin'
+          window.location.href = '/admin?tab=Trang chủ'
         }
       }
     } catch (error) {

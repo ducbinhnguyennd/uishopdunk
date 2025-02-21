@@ -2,140 +2,313 @@ import './GioHangLayout.scss'
 import { useState, useEffect } from 'react'
 import { ModalNhapThongTin } from './ModalNhapThongTin'
 
-function GioHangLayout() {
+function GioHangLayout () {
   const [cart, setCart] = useState([])
-  const [isOpen, setIsOpen] = useState(false)
-  const [productid, setProductid] = useState([]) // Lưu ID của sản phẩm được chọn
-  const [selected, setSelected] = useState([]) // Lưu trạng thái checkbox đã chọn
-  const [selectAll, setSelectAll] = useState(false) // Lưu trạng thái của checkbox "Tất cả"
+  const [sex, setsex] = useState('Anh')
+  const [name, setname] = useState('')
+  const [phone, setphone] = useState('')
+
+  const [giaotannoi, setgiaotannoi] = useState(true)
+  const [address, setaddress] = useState('')
+  const [ghichu, setghichu] = useState('')
+  const [magiamgia, setmagiamgia] = useState('')
+  const [isOpenModaltt, setisOpenModaltt] = useState(false)
+  const [sanphams, setsanphams] = useState([])
 
   useEffect(() => {
     const cartData = JSON.parse(localStorage.getItem('cart')) || []
     setCart(cartData)
-    setSelected(new Array(cartData.length).fill(false)) // Tạo mảng trạng thái checkbox
   }, [])
 
-  const handleSelectAll = () => {
-    const newSelectAll = !selectAll // Đảo trạng thái của checkbox "Tất cả"
-    setSelectAll(newSelectAll)
-    setSelected(new Array(cart.length).fill(newSelectAll)) // Cập nhật trạng thái tất cả checkbox
+  const callAPIsForEachObject = async cart => {
+    try {
+      const updatedData = await Promise.all(
+        cart.map(async item => {
+          try {
+            const response = await fetch(
+              `http://localhost:3005/getmausacgh/${item.iddungluong}`
+            )
+            if (!response.ok)
+              throw new Error(`Lỗi khi gọi API với ${item.iddungluong}`)
 
-    if (newSelectAll) {
-      // Nếu chọn tất cả, lưu toàn bộ ID sản phẩm
-      const allProductIds = cart.map(item => item._id)
-      setProductid(allProductIds)
-    } else {
-      // Nếu bỏ chọn tất cả, xóa toàn bộ ID
-      setProductid([])
+            const data = await response.json()
+
+            return {
+              ...item,
+              soluong: 1,
+              mangmausac: data.length > 0 ? data : []
+            }
+          } catch (error) {
+            console.error('Lỗi khi gọi API:', error)
+            return {
+              ...item,
+              soluong: 1,
+              mangmausac: []
+            }
+          }
+        })
+      )
+
+      setCart(updatedData)
+      localStorage.setItem('cart', JSON.stringify(updatedData))
+    } catch (error) {
+      console.error('Lỗi khi gọi API:', error)
     }
   }
 
-  const handleCheckboxChange = index => {
-    const newSelected = [...selected]
-    newSelected[index] = !newSelected[index] // Đảo trạng thái checkbox cụ thể
-    setSelected(newSelected)
+  useEffect(() => {
+    const cartData = JSON.parse(localStorage.getItem('cart')) || []
+    setCart(cartData)
+    if (cartData.length > 0) {
+      callAPIsForEachObject(cartData)
+    }
+  }, [])
 
-    // Thêm hoặc xóa product ID dựa trên trạng thái checkbox
-    const currentProductId = cart[index]._id
-    if (newSelected[index]) {
-      // Nếu được chọn, thêm ID vào mảng
-      setProductid(prev => [...prev, currentProductId])
-    } else {
-      // Nếu bị bỏ chọn, loại bỏ ID khỏi mảng
-      setProductid(prev => prev.filter(id => id !== currentProductId))
+  const increaseQuantity = index => {
+    const newCart = [...cart]
+    newCart[index].soluong += 1
+    setCart(newCart)
+    localStorage.setItem('cart', JSON.stringify(newCart))
+  }
+
+  const decreaseQuantity = index => {
+    const newCart = [...cart]
+    if (newCart[index].soluong > 1) {
+      newCart[index].soluong -= 1
+      setCart(newCart)
+      localStorage.setItem('cart', JSON.stringify(newCart))
+    }
+  }
+
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.pricemausac * item.soluong,
+    0
+  )
+
+  const changeColor = (index, selectedColor, newPrice) => {
+    const newCart = [...cart]
+    newCart[index].mausac = selectedColor
+    newCart[index].pricemausac = newPrice
+
+    setCart(newCart)
+    localStorage.setItem('cart', JSON.stringify(newCart))
+  }
+
+  useEffect(() => {
+    const formattedSanphams = cart.map(item => ({
+      idsp: item.idsanpham,
+      soluong: item.soluong,
+      price: item.pricemausac,
+      dungluong: item.iddungluong,
+      mausac: item.mausac
+    }))
+    setsanphams(formattedSanphams)
+  }, [cart])
+
+  const handelOpenModalTT = () => {
+    if (!name) {
+      alert('Vui lòng nhập họ tên')
+      return
     }
 
-    // Nếu tất cả checkbox con được chọn, thì chọn "Tất cả"
-    const allSelected = newSelected.every(checked => checked === true)
-    setSelectAll(allSelected)
+    if (!phone) {
+      alert('Vui lòng nhập số điện thoại')
+      return
+    }
+    if (!address) {
+      alert('Vui lòng nhập địa chỉ')
+      return
+    }
+    setisOpenModaltt(true)
   }
-
-  // Tính tổng tiền của các sản phẩm đã chọn
-  const totalPrice = cart.reduce((total, item, index) => {
-    return selected[index] ? total + item.price : total // Chỉ cộng giá của sản phẩm được chọn
-  }, 0)
-
-  // Xử lý xóa sản phẩm
-  const handleRemoveProduct = productId => {
-    const updatedCart = cart.filter(item => item._id !== productId)
-    setCart(updatedCart)
-    setProductid(productid.filter(id => id !== productId))
-    setSelected(new Array(updatedCart.length).fill(false)) // Cập nhật trạng thái checkbox
-    setSelectAll(false) // Bỏ chọn trạng thái "Tất cả"
-
-    // Cập nhật lại localStorage
-    localStorage.setItem('cart', JSON.stringify(updatedCart))
-  }
-
   return (
-    <div style={{ marginTop: '70px' }}>
-      <table className='tablenhap'>
-        <thead className='theadnhap'>
-          <tr>
-            <td className='tdnhap'>
-              <input
-                type='checkbox'
-                className='tatca'
-                checked={selectAll}
-                onChange={handleSelectAll} // Gọi hàm xử lý chọn tất cả
-              />
-            </td>
-            <td className='tdnhap'>Ảnh</td>
-            <td className='tdnhap'>Tên sản phẩm</td>
-            <td className='tdnhap'>Chip</td>
-            <td className='tdnhap'>Ram</td>
-            <td className='tdnhap'>Dung lượng</td>
-            <td className='tdnhap'>Đơn giá</td>
-            <td className='tdnhap'>Hành động</td> {/* Cột thêm nút xóa */}
-          </tr>
-        </thead>
-        <tbody className='tbodynhap'>
-          {cart.length > 0 ? (
-            cart.map((c, index) => (
-              <tr key={c._id}>
-                <td>
-                  <input
-                    type='checkbox'
-                    checked={selected[index]} // Kiểm tra trạng thái checkbox
-                    onChange={() => handleCheckboxChange(index)} // Xử lý chọn checkbox cụ thể
-                  />
-                </td>
-                <td>
-                  <img src={`${c.image}`} alt='' />
-                </td>
-                <td>{c.name}</td>
-                <td>{c.chip}</td>
-                <td>{c.ram}</td>
-                <td>{c.dungluong}</td>
-                <td>{c.price.toLocaleString()}</td>
-                <td>
-                  <button
-                    className='btn-xoa'
-                    onClick={() => handleRemoveProduct(c._id)}
-                  >
-                    Xóa
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan='8'>Không có sản phẩm nào</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      <div className='tongtienthanhtoan'>
-        <h5>Tổng tiền: {totalPrice.toLocaleString()} đ</h5>
-        <button className='btnthanhtoan' onClick={() => setIsOpen(true)}>
-          Thanh toán
+    <div className='giohang_container'>
+      <div className='giohang_header_container'>
+        {cart.map((item, index) => (
+          <div className='giohang_header' key={index}>
+            <div className='giohang_header_top'>
+              <div className='giohang_header_top_left'>
+                <img src={item.imgsanpham} alt='' width={100} height={110} />
+              </div>
+              <div className='giohang_header_top_right'>
+                <div className='giohang_header_top_right_top'>
+                  <span>{item.namesanpham}</span>
+                  <div className='mausac_container'>
+                    {item.mangmausac &&
+                      item.mangmausac.map((mausac, row) => (
+                        <div
+                          className={
+                            item.mausac === mausac.name
+                              ? `border_mausac border_mausac1`
+                              : `border_mausac`
+                          }
+                          key={row}
+                          onClick={() =>
+                            changeColor(index, mausac.name, mausac.price)
+                          }
+                        >
+                          <div
+                            style={{ backgroundColor: `${mausac.name}` }}
+                          ></div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+                <div className='giohang_header_top_right_bottom'>
+                  <span>
+                    {(item.pricemausac * item.soluong).toLocaleString()}đ
+                  </span>
+                  <div className='quantity'>
+                    <div
+                      className='quantity_minus'
+                      onClick={() => decreaseQuantity(index)}
+                    >
+                      -
+                    </div>
+                    <div className='quantity_number'>{item.soluong}</div>
+                    <div
+                      className='quantity_plus'
+                      onClick={() => increaseQuantity(index)}
+                    >
+                      +
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='giohang_header_bottom'>
+              <div className='giohang_header_bottom_left'>
+                <span>
+                  <strong>Tạm tính </strong>({cart.length} sản phẩm)
+                </span>
+              </div>
+              <div className='giohang_header_bottom_right'>
+                <span>{totalPrice.toLocaleString()}đ</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className='giohang_content_container'>
+        <span>Thông tin khách hàng</span>
+        <div className='giohang_thongtin_sex'>
+          <div className='giohang_thongtin_sex_item'>
+            <input
+              type='radio'
+              checked={sex === 'Anh'}
+              onClick={() => setsex('Anh')}
+            />
+            <label htmlFor=''>Anh</label>
+          </div>
+          <div className='giohang_thongtin_sex_item'>
+            <input
+              type='radio'
+              checked={sex === 'Chị'}
+              onClick={() => setsex('Chị')}
+            />
+            <label htmlFor=''>Chị</label>
+          </div>
+        </div>
+        <div className='giohang_thongtin_input'>
+          <div className='div_thongtin_input'>
+            <input
+              type='text'
+              className='input_giohang'
+              placeholder='Họ và tên'
+              value={name}
+              onChange={e => setname(e.target.value)}
+            />
+          </div>
+          <div className='div_thongtin_input'>
+            <input
+              type='text'
+              className='input_giohang'
+              placeholder='Số điện thoại'
+              value={phone}
+              onChange={e => setphone(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+      <div className='giohang_content_container'>
+        <span>Hình thức nhận hàng</span>
+        <div className='giohang_thongtin_sex'>
+          <div className='giohang_thongtin_sex_item'>
+            <input
+              type='radio'
+              checked={giaotannoi}
+              onClick={() => setgiaotannoi(true)}
+            />
+            <label htmlFor=''>Giao tận nơi</label>
+          </div>
+        </div>
+        <div className='giohang_thongtin_input'>
+          <div className='div_thongtin_input'>
+            <input
+              type='text'
+              className='input_giohang'
+              placeholder='Địa chỉ cụ thể'
+              value={address}
+              onChange={e => setaddress(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className='giohang_thongtin_input'>
+          <div className='div_thongtin_input'>
+            <input
+              type='text'
+              className='input_giohang'
+              placeholder='Ghi chú (nếu có)'
+              value={ghichu}
+              onChange={e => setghichu(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+      <div className='giohang_content_container'>
+        <span>Sử dụng mã giảm giá</span>
+        <div className='giohang_thongtin_input'>
+          <div className='div_thongtin_input'>
+            <input
+              type='text'
+              className='input_giohang'
+              placeholder='Mã giảm giá'
+              value={magiamgia}
+              onChange={e => setmagiamgia(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className='giohang_thongtin_tongtien'>
+          <div className='div_thongtin_tongtien'>
+            <span>Tổng tiền:</span>
+          </div>
+          <div className='div_thongtin_tongtien'>
+            <span className='thongtin_tongtien'>
+              {totalPrice.toLocaleString()}đ
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className='giohang_content_container'>
+        <button className='btndathang' onClick={handelOpenModalTT}>
+          Tiến hành đặt hàng
         </button>
+        <div className='div_text_hinhthuc'>
+          Bạn có thể lựa chọn các hình thức thanh toán ở bước sau
+        </div>
       </div>
       <ModalNhapThongTin
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        isOpen={isOpenModaltt}
+        onClose={() => setisOpenModaltt(false)}
         amount={totalPrice}
-        product={productid}
+        name={name}
+        phone={phone}
+        sex={sex}
+        giaotannoi={giaotannoi}
+        address={address}
+        ghichu={ghichu}
+        magiamgia={magiamgia}
+        sanphams={sanphams}
       />
     </div>
   )

@@ -2,20 +2,24 @@ import { Modal } from '../../../../components/Modal'
 import { MdDeleteForever } from 'react-icons/md'
 import { MdCancelPresentation } from 'react-icons/md'
 
-function XoaSanPham ({ isOpen, onClose, idsanpham, fetchdata }) {
+function XoaSanPham ({ isOpen, onClose, idsanpham, fetchdata, setSelectedIds }) {
   const handleXoaSanPham = async () => {
     try {
       const response = await fetch(
-        `https://demovemaybay.shop/deletesanpham/${idsanpham}`,
+        `http://localhost:3005/deletechitietsphangloat`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
-          }
+          },
+          body: JSON.stringify({
+            ids: idsanpham
+          })
         }
       )
       if (response.ok) {
         onClose()
+        setSelectedIds([])
         fetchdata()
         alert('Xóa thành công!')
       }

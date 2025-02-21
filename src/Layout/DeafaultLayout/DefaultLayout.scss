@@ -6,6 +6,10 @@
 .header-navbar {
     display: flex;
     flex-direction: column; 
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
   
     @media (max-width: 768px) {
       flex-direction: column-reverse; // Đảo thứ tự
