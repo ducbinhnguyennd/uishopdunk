@@ -149,7 +149,7 @@ function SanPhamLayout ({ isOpen, onClose, idtheloai }) {
                     <img src={`${item.image}`} alt='' />
                   </td>
                   <td>{item.name}</td>
-                  <td>{item.price}</td>
+                  <td>{item.price.toLocaleString()}đ</td>
                 </tr>
               ))
             ) : (

@@ -2,13 +2,15 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './ProductCard.scss'
 
-const ProductCard = ({ sanpham,nametheloai }) => {
+const ProductCard = ({ sanpham, nametheloai, page, setPage, totalPages }) => {
   const navigate = useNavigate()
 
   return (
     <div
       className='product-card'
-      onClick={() => navigate(`/chitietsanpham/${nametheloai}/${sanpham.namekhongdau}`)}
+      onClick={() =>
+        navigate(`/chitietsanpham/${nametheloai}/${sanpham.namekhongdau}`)
+      }
     >
       <div class='price-ratio-container'>Giảm 27%</div>
       <div className='product_tag'>
@@ -17,8 +19,8 @@ const ProductCard = ({ sanpham,nametheloai }) => {
       <img className='product-image' src={sanpham.image} alt={sanpham.name} />
       <div className='name-sp'>{sanpham.name}</div>
       <div className='original-price'>
-        <div className='price'>{sanpham.price}</div>
-        <span className='old-price'>{sanpham.price}</span>
+        <div className='price'>{sanpham.price.toLocaleString()}đ</div>
+        <span className='old-price'>{sanpham.price.toLocaleString()}đ</span>
       </div>
     </div>
   )

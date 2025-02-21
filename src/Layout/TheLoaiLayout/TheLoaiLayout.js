@@ -1,10 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import CategoryList from '../../components/ListTheLoai/CategoryList'
 import Loading from '../../components/Loading/Loading'
 import ProductCard from '../../components/ProductItem/ProductCard'
 import './TheLoaiLayout.scss'
-import { FaFilter } from 'react-icons/fa6'
 import ListBlog from '../../components/ListBlog/ListBlog'
 import ThanhDinhHuong from '../../components/ThanhDinhHuong/ThanhDinhHuong'
 import { Helmet } from 'react-helmet'
@@ -17,6 +17,10 @@ const TheLoaiLayout = () => {
   const [showFilter, setShowFilter] = useState(false)
   const filterRef = useRef(null)
   const filterButtonRef = useRef(null)
+  const [page, setPage] = useState(1)
+  const [limit] = useState(8)
+  const [totalPages, setTotalPages] = useState(1)
+  const [sortOrder, setSortOrder] = useState('asc')
 
   useEffect(() => {
     const handleClickOutside = event => {
@@ -40,9 +44,12 @@ const TheLoaiLayout = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true)
-        const response = await fetch(`http://localhost:3005/san-pham/${slug}`)
+        const response = await fetch(
+          `http://localhost:3005/san-pham-pt/${slug}?page=${page}&limit=${limit}&sort=${sortOrder}`
+        )
         const data = await response.json()
         setProductDetails(data)
+        setTotalPages(data.pagination.totalPages)
       } catch (error) {
         console.error('Lỗi khi tải sản phẩm:', error)
       } finally {
@@ -50,7 +57,7 @@ const TheLoaiLayout = () => {
       }
     }
     fetchProduct()
-  }, [slug])
+  }, [slug, page,sortOrder])
 
   if (!productDetails) return <Loading />
 
@@ -71,12 +78,15 @@ const TheLoaiLayout = () => {
           <CategoryList />
         </div>
 
-        <div
-          className='filter-button'
-          ref={filterButtonRef}
-          onClick={() => setShowFilter(!showFilter)}
-        >
-          <FaFilter /> Bộ Lọc
+        <div className='filter-dropdown'>
+          <select
+            onChange={e => setSortOrder(e.target.value)}
+            value={sortOrder}
+            className='custom-select'
+          >
+            <option value='asc'>Giá thấp đến cao</option>
+            <option value='desc'>Giá cao đến thấp</option>
+          </select>
         </div>
 
         <div
@@ -98,6 +108,22 @@ const TheLoaiLayout = () => {
               />
             ))
           )}
+        </div>
+        <div className='pagination'>
+          <button disabled={page === 1} onClick={() => setPage(page - 1)}>
+            Trang trước
+          </button>
+
+          <span>
+            Trang {page} / {totalPages}
+          </span>
+
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage(page + 1)}
+          >
+            Trang sau
+          </button>
         </div>
       </div>
       <ListBlog />
