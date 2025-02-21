@@ -8,6 +8,7 @@ import { FaFilter } from 'react-icons/fa6'
 import ListBlog from '../../components/ListBlog/ListBlog'
 import ThanhDinhHuong from '../../components/ThanhDinhHuong/ThanhDinhHuong'
 import { Helmet } from 'react-helmet'
+import { DanhGiaLayout } from '../DanhGiaLayout'
 
 const TheLoaiLayout = () => {
   const { slug } = useParams()
@@ -39,9 +40,7 @@ const TheLoaiLayout = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true)
-        const response = await fetch(
-          `http://localhost:3005/san-pham/${slug}`
-        )
+        const response = await fetch(`http://localhost:3005/san-pham/${slug}`)
         const data = await response.json()
         setProductDetails(data)
       } catch (error) {
@@ -60,7 +59,6 @@ const TheLoaiLayout = () => {
       <Helmet>
         <title>{productDetails.nametheloai} - Shopdunk</title>
         <meta name='description' content={productDetails.nametheloai} />
-       
       </Helmet>
       <ThanhDinhHuong
         breadcrumbs={[
@@ -71,7 +69,6 @@ const TheLoaiLayout = () => {
       <div className='theloailayout'>
         <div className='category-sidebar'>
           <CategoryList />
-          
         </div>
 
         <div
@@ -92,14 +89,19 @@ const TheLoaiLayout = () => {
           {loading ? (
             <Loading />
           ) : (
-            productDetails.sanpham.map((sanpham) => (
-              <ProductCard key={sanpham._id} sanpham={sanpham} setLoading={setLoading} nametheloai={productDetails.namekhongdau}/>
+            productDetails.sanpham.map(sanpham => (
+              <ProductCard
+                key={sanpham._id}
+                sanpham={sanpham}
+                setLoading={setLoading}
+                nametheloai={productDetails.namekhongdau}
+              />
             ))
           )}
         </div>
       </div>
       <ListBlog />
-
+      <DanhGiaLayout />
     </div>
   )
 }

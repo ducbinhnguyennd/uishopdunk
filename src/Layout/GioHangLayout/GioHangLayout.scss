@@ -17,8 +17,7 @@
     flex-direction: column;
     gap: 10px;
     box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
-
-
+    padding: 10px;
 }
 
 .giohang_content_container {
@@ -132,6 +131,8 @@
     input {
         border: none;
         outline: none;
+        width: 100%;
+
     }
 }
 
@@ -200,46 +201,53 @@ td img {
     object-fit: cover;
 }
 
-.giohang_no{
+.giohang_no {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
 
-.giohang_no_icon{
+.giohang_no_icon {
     font-size: 100px;
     color: #96dc93;
 }
 
-.div_giohang_no_text{
+.div_giohang_no_text {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.p_hotro{
+
+.p_hotro {
     display: flex;
     align-items: center;
     gap: 5px;
-    a{
+
+    a {
         text-decoration: none;
         color: #288ad6;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .giohang_container{
+    .giohang_container {
         width: unset !important;
     }
-    .giohang_header_top_right{
+
+    .giohang_header_top_right {
         flex-direction: column;
         gap: 10px;
     }
-    .giohang_header_top_right_bottom{
+
+    .giohang_header_top_right_bottom {
         gap: 10px;
     }
-    .giohang_thongtin_input{
+
+    .giohang_thongtin_input {
         flex-direction: column;
         align-items: unset !important;
     }
+
+
 }

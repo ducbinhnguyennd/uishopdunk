@@ -163,13 +163,11 @@ const ChiTietLayout = () => {
       return
     }
 
-    // Lấy danh sách màu sắc của dung lượng đã chọn
     const dungLuongHienTai = dungluong.find(dl => dl.name === dungluong1)
     const validColors = dungLuongHienTai
       ? dungLuongHienTai.mausac.map(mau => mau.name)
       : []
 
-    // Kiểm tra xem màu sắc đã chọn có hợp lệ với dung lượng hay không
     if (!validColors.includes(mausac1)) {
       alert('Màu sắc không hợp lệ với dung lượng đã chọn!')
       return

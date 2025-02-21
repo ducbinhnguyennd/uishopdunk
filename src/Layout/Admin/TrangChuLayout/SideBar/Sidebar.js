@@ -1,11 +1,11 @@
 import {
   faBars,
   faBlog,
-  faHouse,
   faMobile,
   faPercent,
   faChartLine,
-  faReceipt
+  faReceipt,
+  faComments
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './SideBar.scss'
@@ -18,6 +18,7 @@ function Sidebar ({ activeTab }) {
     { name: 'Sản Phẩm', icon: faMobile },
     { name: 'Blog', icon: faBlog },
     { name: 'Mã Giảm Giá', icon: faPercent },
+    { name: 'Đánh Giá', icon: faComments },
     { name: 'Hóa đơn', icon: faReceipt },
     { name: 'Doanh Thu', icon: faChartLine }
   ]

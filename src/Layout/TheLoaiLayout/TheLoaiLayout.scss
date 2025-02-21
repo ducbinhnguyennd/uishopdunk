@@ -1,8 +1,9 @@
-.theloailayout-container{
+.theloailayout-container {
   gap: 20px;
   padding: 10px;
   overflow: hidden;
 }
+
 .theloailayout {
 
   padding: 20px 5%;
@@ -15,10 +16,14 @@
 
 .theloaisp {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 330px);
   gap: 10px;
-  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
 }
+
 
 .product-name {
   font-weight: bold;
@@ -26,10 +31,10 @@
 }
 
 .filter-button {
-  display: none; 
+  display: none;
   color: #000000;
   border: none;
- text-align: center;
+  text-align: center;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
@@ -40,7 +45,7 @@
   position: fixed;
   top: 0;
   left: -100%;
-  width: 60%; 
+  width: 60%;
   height: 100%;
   background-color: #fff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
@@ -54,16 +59,17 @@
 
 
 @media (max-width: 768px) {
-  .theloailayout-container{
+  .theloailayout-container {
     padding: 0px 0%;
   }
+
   .theloailayout {
     flex-direction: column;
     padding: 20px 5%;
   }
-  
+
   .category-sidebar {
-    display: none; 
+    display: none;
   }
 
   .filter-button {

@@ -192,18 +192,18 @@ function GioHangLayout () {
                     </div>
                   </div>
                 </div>
-                <div className='giohang_header_bottom'>
-                  <div className='giohang_header_bottom_left'>
-                    <span>
-                      <strong>Tạm tính </strong>({cart.length} sản phẩm)
-                    </span>
-                  </div>
-                  <div className='giohang_header_bottom_right'>
-                    <span>{totalPrice.toLocaleString()}đ</span>
-                  </div>
-                </div>
               </div>
             ))}
+            <div className='giohang_header_bottom'>
+              <div className='giohang_header_bottom_left'>
+                <span>
+                  <strong>Tạm tính </strong>({cart.length} sản phẩm)
+                </span>
+              </div>
+              <div className='giohang_header_bottom_right'>
+                <span>{totalPrice.toLocaleString()}đ</span>
+              </div>
+            </div>
           </div>
           <div className='giohang_content_container'>
             <span>Thông tin khách hàng</span>
