@@ -51,15 +51,7 @@ const Footer = () => {
             <li><Link to={"/huong-dan-thanh-toan"}>Hướng dẫn thanh toán</Link></li>
            
           </ul>
-          <h3>ĐĂNG KÝ TƯ VẤN</h3>
-          <p>
-            Hãy để lại thông tin để được tư vấn sản phẩm chất lượng tốt nhất, phù hợp với nhu cầu của bạn.
-          </p>
-          <form>
-            <input type="text" placeholder="Họ và tên" />
-            <input type="text" placeholder="Số điện thoại" />
-            <button type="submit">TƯ VẤN CHO TÔI</button>
-          </form>
+         
         </div>
 
 
