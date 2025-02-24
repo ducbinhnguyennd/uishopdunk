@@ -10,6 +10,9 @@ const DanhGiaLayout = () => {
   const [content, setcontent] = useState('')
   const [danhgias, setdanhgias] = useState([])
 
+  // Tính trung bình số sao
+  const [averageRating, setAverageRating] = useState(0)
+
   const handleRating = value => {
     setRating(value)
   }
@@ -32,17 +35,27 @@ const DanhGiaLayout = () => {
           position: 'top-right',
           autoClose: 2000
         })
+        setTenkhach('')
+        setcontent('')
+        setRating(0)
+        fetchdanhgia()
       }
     } catch (error) {
       console.log(error)
     }
   }
+
   const fetchdanhgia = async () => {
     try {
       const response = await fetch('http://localhost:3005/getdanhgia')
       if (response.ok) {
         const data = await response.json()
         setdanhgias(data)
+
+        if (data.length > 0) {
+          const totalRating = data.reduce((acc, item) => acc + item.rating, 0)
+          setAverageRating(totalRating / data.length)
+        }
       }
     } catch (error) {
       console.log(error)
@@ -60,20 +73,37 @@ const DanhGiaLayout = () => {
 
         <div className='rating-summary'>
           <div className='score'>
-            <span>5</span>
-            <p>7 đánh giá</p>
+            <span>{averageRating.toFixed(1)}</span>
+            <p>{danhgias.length} đánh giá</p>
           </div>
+
           <div className='rating-details'>
-            <div className='stars'>★★★★★</div>
+            <div className='stars'>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <span
+                  key={i}
+                  style={{
+                    color: i < Math.round(averageRating) ? 'gold' : '#ccc'
+                  }}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
+
             <div className='rating-bars'>
-              <div className='bar active'></div>
-              <div className='bar'></div>
-              <div className='bar'></div>
-              <div className='bar'></div>
-              <div className='bar'></div>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <div
+                  key={index}
+                  className={`bar ${
+                    Math.round(averageRating) === 5 - index ? 'active' : ''
+                  }`}
+                ></div>
+              ))}
             </div>
           </div>
         </div>
+
         <div className='review-form'>
           <h3 className='form-title'>Viết đánh giá của riêng bạn</h3>
           <div className='div_chatluong_star'>
@@ -97,7 +127,6 @@ const DanhGiaLayout = () => {
               type='text'
               value={tenkhach}
               className='input-name'
-              required
               onChange={e => setTenkhach(e.target.value)}
             />
           </div>
@@ -107,7 +136,6 @@ const DanhGiaLayout = () => {
               className='input-review'
               value={content}
               onChange={e => setcontent(e.target.value)}
-              required
             ></textarea>
           </div>
 

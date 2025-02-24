@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import { useParams,useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import './ChiTietLayout.scss'
 
 import ListBlog from '../../components/ListBlog/ListBlog'
@@ -23,6 +23,8 @@ const ChiTietLayout = () => {
   const [mausac1, setmausac1] = useState([])
   const [annhmausac, setanhmausac] = useState([])
   const [pricemausac, setpricemausac] = useState(0)
+  const [khuyenmai, setkhuyenmai] = useState(0)
+  const [giagoc, setgiagoc] = useState(0)
   const [idmausac, setidmausac] = useState('')
   const [idsanpham, setidsanpham] = useState('')
   const [iddungluong, setiddungluong] = useState('')
@@ -62,6 +64,8 @@ const ChiTietLayout = () => {
         setmausac1(dungluong[0].mausac[0].name)
         setidmausac(dungluong[0].mausac[0]._id)
         setpricemausac(dungluong[0].mausac[0].price)
+        setkhuyenmai(dungluong[0].mausac[0].khuyenmai)
+        setgiagoc(dungluong[0].mausac[0].giagoc)
       }
     }
   }, [dungluong])
@@ -78,10 +82,14 @@ const ChiTietLayout = () => {
     if (mauHienTai) {
       setidmausac(mauHienTai._id)
       setpricemausac(mauHienTai.price)
+      setkhuyenmai(mauHienTai.khuyenmai)
+      setgiagoc(mauHienTai.giagoc)
     } else if (dungLuongMoi.mausac.length > 0) {
       setmausac1(dungLuongMoi.mausac[0].name)
       setidmausac(dungLuongMoi.mausac[0]._id)
       setpricemausac(dungLuongMoi.mausac[0].price)
+      setkhuyenmai(dungLuongMoi.mausac[0].khuyenmai)
+      setgiagoc(dungLuongMoi.mausac[0].giagoc)
     }
   }
 
@@ -254,7 +262,11 @@ const ChiTietLayout = () => {
               <span className='current-price'>
                 {pricemausac ? pricemausac.toLocaleString() : 0}đ
               </span>
-              <span className='old-price'>50.000.000đ</span>{' '}
+              {khuyenmai === 0 ? (
+                <div></div>
+              ) : (
+                <span className='old-price'>{giagoc.toLocaleString()}đ</span>
+              )}
             </div>
             <div class='note_VAT'>(Đã bao gồm VAT)</div>
 
@@ -301,6 +313,8 @@ const ChiTietLayout = () => {
                                 setmausac1(mau.name)
                                 setidmausac(mau._id)
                                 setpricemausac(mau.price)
+                                setkhuyenmai(mau.khuyenmai)
+                                setgiagoc(mau.giagoc)
                               }}
                             >
                               <div

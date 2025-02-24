@@ -1,6 +1,5 @@
 import { Modal } from '../../../../components/Modal'
 import { useState } from 'react'
-import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './AddDanhGia.scss'
 
@@ -18,14 +17,14 @@ function AddDanhGia ({ isOpen, onClose, fetchdata }) {
 
   const handelAddDanhGia = async () => {
     try {
-      const response = await fetch('http://localhost:3005/danhgia', {
+      const response = await fetch('http://localhost:3005/danhgiaadmin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name,
-          content:thongtin,
+          tenkhach: name,
+          content: thongtin,
           rating
         })
       })
@@ -49,7 +48,9 @@ function AddDanhGia ({ isOpen, onClose, fetchdata }) {
           {[1, 2, 3, 4, 5].map(star => (
             <span
               key={star}
-              className={`star_admin ${rating >= star ? 'starselected_admin' : ''}`}
+              className={`star_admin ${
+                rating >= star ? 'starselected_admin' : ''
+              }`}
               onClick={() => handleRating(star)}
             >
               ★
@@ -65,16 +66,15 @@ function AddDanhGia ({ isOpen, onClose, fetchdata }) {
               onChange={e => setname(e.target.value)}
               placeholder='Nhập tên đánh giá'
             />
+            <textarea
+              className='input-review_admin'
+              value={thongtin}
+              onChange={e => sethongtin(e.target.value)}
+              placeholder='Nhập nội dung'
+            ></textarea>
           </div>
         </div>
 
-        <label>Nội dung:</label>
-        <ReactQuill
-          value={thongtin}
-          onChange={sethongtin}
-          placeholder='Nhập nội dung'
-          theme='snow'
-        />
         <div className='button-group'>
           <button onClick={handelAddDanhGia} className='btnaddtl'>
             Thêm

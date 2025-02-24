@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 
-import { FaMobile } from 'react-icons/fa6'
+import { FaMobile, FaTrashCan } from 'react-icons/fa6'
 import { HoaDonChiTiet } from './HoaDonChiTiet'
+import { XoaHoaDon } from './XoaHoaDon'
 import './HoaDonLayout.scss'
 
 function HoaDonLayout () {
@@ -9,6 +10,7 @@ function HoaDonLayout () {
   const [selectedIds, setSelectedIds] = useState([])
   const [selectAll, setSelectAll] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenXoaHoaDon, setisOpenXoaHoaDon] = useState(false)
 
   const fetchdata = async () => {
     try {
@@ -85,6 +87,33 @@ function HoaDonLayout () {
           <FaMobile className='icons' />
           Chi tiết
         </button>
+        <button
+          className='btnthemtheloai'
+          onClick={() => {
+            if (selectedIds.length === 0) {
+              alert('Chọn một hóa đơn để xóa')
+              return
+            }
+
+            const hoaDonDuocChon = data.filter(hoaDon =>
+              selectedIds.includes(hoaDon._id)
+            )
+
+            const coHoaDonDaThanhToan = hoaDonDuocChon.some(
+              hoaDon => hoaDon.thanhtoan
+            )
+
+            if (coHoaDonDaThanhToan) {
+              alert('Chỉ được xóa hóa đơn chưa thanh toán')
+              return
+            }
+
+            setisOpenXoaHoaDon(true)
+          }}
+        >
+          <FaTrashCan className='icons' />
+          Xóa hóa đơn
+        </button>
       </div>
 
       <table className='tablenhap'>
@@ -144,6 +173,13 @@ function HoaDonLayout () {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         idhoadon={selectedIds}
+      />
+      <XoaHoaDon
+        isOpen={isOpenXoaHoaDon}
+        onClose={() => setisOpenXoaHoaDon(false)}
+        idhoadon={selectedIds}
+        fetchdata={fetchdata}
+        setSelectedIds={setSelectedIds}
       />
     </div>
   )

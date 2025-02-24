@@ -15,20 +15,22 @@ function AddTheLoai ({ isOpen, onClose, fetchdata }) {
   const [hang, sethang] = useState('')
   const [congsac, setcongsac] = useState('')
   const [thongtin, sethongtin] = useState('')
+  const [khuyenmai, setkhuyenmai] = useState(0)
 
   const handelClose = () => {
-  setname('')
-  setManhinh('')
-  setChip('')
-  setRam('')
-  setdungluong('')
-  setCamera('')
-  setpinsac('')
-  sethang('')
-  setcongsac('')
-  sethongtin('')
-  onClose()
-}
+    setname('')
+    setManhinh('')
+    setChip('')
+    setRam('')
+    setdungluong('')
+    setCamera('')
+    setpinsac('')
+    sethang('')
+    setcongsac('')
+    sethongtin('')
+    setkhuyenmai(0)
+    onClose()
+  }
 
   const handelAddTheLoai = async () => {
     try {
@@ -47,7 +49,8 @@ function AddTheLoai ({ isOpen, onClose, fetchdata }) {
           pinsac,
           hang,
           congsac,
-          thongtin
+          thongtin,
+          khuyenmai
         })
       })
       if (response.ok) {
@@ -118,7 +121,13 @@ function AddTheLoai ({ isOpen, onClose, fetchdata }) {
               type='text'
               value={hang}
               onChange={e => sethang(e.target.value)}
-              placeholder='Nhập hàng'
+              placeholder='Nhập hãng'
+            />
+            <input
+              type='number'
+              value={khuyenmai}
+              onChange={e => setkhuyenmai(e.target.value)}
+              placeholder='Nhập khuyến mãi (%)'
             />
           </div>
         </div>

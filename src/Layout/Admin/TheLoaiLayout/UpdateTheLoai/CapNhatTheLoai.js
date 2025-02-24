@@ -15,6 +15,7 @@ export function CapNhatTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
   const [hang, sethang] = useState('')
   const [congsac, setcongsac] = useState('')
   const [thongtin, sethongtin] = useState('')
+  const [khuyenmai, setkhuyenmai] = useState(0)
 
   const fetchtheloai = async () => {
     try {
@@ -33,6 +34,7 @@ export function CapNhatTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
         sethang(data.hang)
         setcongsac(data.congsac)
         sethongtin(data.thongtin)
+        setkhuyenmai(data.khuyenmai)
       }
     } catch (error) {
       console.error(error)
@@ -55,6 +57,7 @@ export function CapNhatTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
     sethang('')
     setcongsac('')
     sethongtin('')
+    setkhuyenmai(0)
     onClose()
   }
 
@@ -77,7 +80,8 @@ export function CapNhatTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
             pinsac,
             hang,
             congsac,
-            thongtin
+            thongtin,
+            khuyenmai
           })
         }
       )
@@ -158,6 +162,12 @@ export function CapNhatTheLoai ({ isOpen, onClose, idtheloai, fetchdata }) {
               value={hang}
               onChange={e => sethang(e.target.value)}
               placeholder='Nhập hàng'
+            />
+            <input
+              type='number'
+              value={khuyenmai}
+              onChange={e => setkhuyenmai(e.target.value)}
+              placeholder='Nhập khuyến mãi (%)'
             />
           </div>
         </div>
