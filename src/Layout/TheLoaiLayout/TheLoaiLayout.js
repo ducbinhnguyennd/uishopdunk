@@ -9,6 +9,8 @@ import ListBlog from '../../components/ListBlog/ListBlog'
 import ThanhDinhHuong from '../../components/ThanhDinhHuong/ThanhDinhHuong'
 import { Helmet } from 'react-helmet'
 import { DanhGiaLayout } from '../DanhGiaLayout'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 const TheLoaiLayout = () => {
   const { slug } = useParams()
@@ -57,7 +59,7 @@ const TheLoaiLayout = () => {
       }
     }
     fetchProduct()
-  }, [slug, page,sortOrder])
+  }, [slug, page, sortOrder])
 
   if (!productDetails) return <Loading />
 
@@ -111,7 +113,7 @@ const TheLoaiLayout = () => {
         </div>
         <div className='pagination'>
           <button disabled={page === 1} onClick={() => setPage(page - 1)}>
-            Trang trước
+            <FontAwesomeIcon icon={faArrowLeft} />
           </button>
 
           <span>
@@ -122,7 +124,7 @@ const TheLoaiLayout = () => {
             disabled={page === totalPages}
             onClick={() => setPage(page + 1)}
           >
-            Trang sau
+            <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>
       </div>

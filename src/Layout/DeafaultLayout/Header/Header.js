@@ -4,7 +4,7 @@ import './Header.scss'
 import { useNavigate } from 'react-router-dom'
 import { FaSearch } from 'react-icons/fa'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
+import { faBagShopping, faUser } from '@fortawesome/free-solid-svg-icons'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -72,6 +72,11 @@ const Header = () => {
           </button>
         </div>
       </div>
+      <a href='/login-admin' className='icon_user'>
+        <div className='cart-container'>
+          <FontAwesomeIcon icon={faUser} className='cart-icon' />
+        </div>
+      </a>
     </div>
   )
 }
