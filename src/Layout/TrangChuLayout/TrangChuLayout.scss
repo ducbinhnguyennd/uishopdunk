@@ -39,11 +39,13 @@
   font-size: 20px;
 
 }
-.topic-block-body{
+
+.topic-block-body {
   display: flex;
   justify-content: center;
   margin: 20px 15%;
 }
+
 .divtungsp {
   height: 440px;
   padding: 5px;
@@ -145,10 +147,11 @@
   text-decoration: line-through;
 }
 
-.trangchu_banner{
+.trangchu_banner {
   display: flex;
   justify-content: center;
 }
+
 .trangchu_banner img {
   max-width: 1200px;
   width: 100%;
@@ -156,6 +159,47 @@
   border-radius: 8px;
   margin: 15px;
 }
+
+.search_sanpham {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  label {
+    font-weight: 700;
+    font-size: 23px;
+  }
+}
+
+.div_input_search {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 300px;
+
+  input {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    flex: 1;
+  }
+
+  button {
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    background-color: #0066cc;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+}
+
+
 @media (max-width: 768px) {
   .divsp {
     grid-template-columns: repeat(2, 1fr);
@@ -193,7 +237,7 @@
     display: none;
   }
 
- 
+
 
   .div_sanpham {
     display: flex;

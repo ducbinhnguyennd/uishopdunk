@@ -16,6 +16,7 @@ import TimKiemLayout from '../Layout/TimKiemLayout/TiemKiemLayout'
 import { AdminLayout } from '../Layout/Admin/TrangChuLayout'
 import { DangNhapLayout } from '../Layout/Admin/DangNhapLayout'
 import { TinTucLayout } from '../Layout/TinTucLayout'
+import { TimKiemSanPhamLayout } from '../Layout/TimKiemSanPhamLayout'
 
 const publicRoutes = [
   { path: '/', component: TrangChuLayout },
@@ -35,6 +36,8 @@ const publicRoutes = [
   { path: '/admin', component: AdminLayout, layout: null },
   { path: '/login-admin', component: DangNhapLayout, layout: null },
   { path: '/search/:keyword', component: TimKiemLayout },
+  { path: '/search-sanpham/:keyword', component: TimKiemSanPhamLayout },
+
   { path: '/tintuc', component: TinTucLayout }
 ]
 const privateRoutes = []
