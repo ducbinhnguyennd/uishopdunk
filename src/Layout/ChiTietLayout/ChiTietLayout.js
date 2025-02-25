@@ -33,22 +33,22 @@ const ChiTietLayout = () => {
   const [namesanpham, setnamesanpham] = useState('')
 
   const settings = {
-    dots: true, // Hiển thị chấm điều hướng
-    infinite: true, // Chạy lặp vô tận
-    speed: 500, // Tốc độ chuyển slide
-    slidesToShow: 5, // Hiển thị 3 ảnh trên cùng 1 hàng
-    slidesToScroll: 1, // Cuộn từng ảnh một
-    autoplay: true, // Tự động chạy
+    dots: true, 
+    infinite: true, 
+    speed: 500, 
+    slidesToShow: 5, 
+    slidesToScroll: 1, 
+    autoplay: true, 
     autoplaySpeed: 3000,
     responsive: [
       {
-        breakpoint: 1024, // Khi màn hình nhỏ hơn 1024px thì hiển thị 2 ảnh
+        breakpoint: 1024, 
         settings: {
           slidesToShow: 2
         }
       },
       {
-        breakpoint: 768, // Khi màn hình nhỏ hơn 768px thì hiển thị 1 ảnh
+        breakpoint: 768, 
         settings: {
           slidesToShow: 1
         }
