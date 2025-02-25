@@ -94,7 +94,7 @@ const TimKiemSanPhamLayout = () => {
                 key={sanpham._id}
                 sanpham={sanpham}
                 setLoading={setLoading}
-                nametheloai={productDetails.namekhongdau}
+                nametheloai={sanpham.nametheloai}
               />
             ))
           )}
