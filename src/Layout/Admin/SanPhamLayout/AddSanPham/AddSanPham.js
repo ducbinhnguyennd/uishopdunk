@@ -31,7 +31,7 @@ function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
       }
 
       const response = await fetch(
-        `http://localhost:3005/postsanpham/${idtheloai}`,
+        `http://localhost:3005/postchitietsp/${idtheloai}`,
         {
           method: 'POST',
           body: formData
@@ -53,7 +53,7 @@ function AddSanPham ({ isOpen, onClose, idtheloai, fetchData }) {
         <h2>Thêm sản phẩm</h2>
         <div className='div_input_group'>
           <div className='input-group1'>
-            {image !== '' ? <img src={image} alt='' /> : <h3>Ảnh sản phẩm</h3>}
+            {image !== '' ? <img src={image} alt='' width={150} height={200}/> : <h3>Ảnh sản phẩm</h3>}
           </div>
           <div className='input-group'>
             <label> Ảnh</label>
